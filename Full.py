@@ -1,31 +1,48 @@
 from random import *
 from time import *
 import os
-debug = 0
+import re
+def clear():
+    os.system("cls")
+def start():
+    global debug
+    global kas
+    debug = 0
+    kas = "[0]"
+    main()
 # Sätti see '1', et muuta allolevaid muutujaid kergesti :)
 
 def main():
-    os.system('cls')
+    global kas
+    global debug
+    clear()
     print(f"""
                     =====================
                     Seiklused Joodikutega
+                        (Kalevipoeg)
+                         Rougelike
                     =====================
-                    
-                 Salvestamise test - TEST1 (done)
+          -----------------------------------------------                    
+    Salvestamise test (DEBUG!!!)   - TEST1 (done)
                  Laadmise test     - TEST2 (done)
                  New char test     - TEST3 (done)
-                 Combat test.      - TEST4
-                 Looting test.     - TEST5
+                 Combat test       - TEST4
+                 Looting test      - TEST5
           Armory and equiping test - TEST6
+          -----------------------------------------------
+                Debug mode {kas}     - DEBUG (done)
+                 Player test       - PLAYER
                  Tunnustused       - CREDITS (done)
+          -----------------------------------------------
+          Versioon: WIP
                  
 """)
     s = input().upper()
     if s == "TEST1":
-        os.system('cls')
+        clear()
         savetest()
     if s == "TEST2":
-        os.system('cls')
+        clear()
         loadtest()
     if s == "TEST3":
         os.system("cls")
@@ -40,13 +57,50 @@ def main():
         print("Veel pole midagi siin ):")
         sleep(5)
         main()
-    if s == "TEST":
+    if s == "TEST6":
         os.system("cls")
         print("Veel pole midagi siin ):")
         sleep(5)
         main()
+    if s == "DEBUG":
+        os.system("cls")
+        if debug == 0:
+            debug = 1
+            kas = "[1]"
+        elif debug == 1:
+            debug = 0
+            kas = "[0]"
+        main()
+    if s == "PLAYER":
+        try:
+            print(f"playerattack: {playerattack}")
+            print(f"playerdef: {playerdef}")
+            print(f"playerdef2: {playerdef2}")
+            print(f"playerdex: {playerdex}")
+            print(f"playermana: {playermana}")
+            print(f"playerint: {playerint}")
+            print(f"playerluck: {playerluck}")
+            print(f"playerspecials: {playerspecials}")
+            print(f"playerlevel: {playerlevel}")
+            print(f"relv: {relv}")
+            print(f"relv_min: {relv_min}")
+            print(f"relv_max: {relv_max}")
+            print(f"ruu: {ruu}")
+            print(f"ruu_def: {ruu_def}")
+            print(f"aksessuaar: {aksessuaar}")
+            print(f"aksessuaar_info: {aksessuaar_info}")
+            print(f"xp_current: {xp_current}")
+            print(f"xp_needed: {xp_needed}")
+            print(f"playerclass: {playerclass}")
+            print(f"playerskoor: {playerskoor}")
+            print("")
+            input("Enter")
+            main()
+        except:
+            print("midagi on katki")
+        
     if s == "CREDITS":
-        os.system('cls')
+        clear()
         print(f"""
 
                     Pea-Arendaja: Sten Soomre
@@ -73,10 +127,13 @@ def level_up_check():
             xp_current -= xp_needed # võta maha
             playerlevel += 1 # level up :)
             if debug == 1:
-                print(f"Level up! Leveled to {playerlevel}!!")
+                print(f"Level up! \nLeveled to {playerlevel}!!")
             xp_needed = round(xp_needed+(playerlevel*100.275),0)
             level_up_check()
+    else:
+        pass
 def savetest():
+    global nimi
     global playerattack
     global playerdef
     global playerdex
@@ -100,7 +157,6 @@ def savetest():
     
     if debug == 1:
         nimi = input("Siseta nimi: ")
-
         playerattack = int(input("Sisesta ATK (int): "))
         playerdef = int(input("Sisesta DEF (int): "))
         playerdex = int(input("Sisesta DEX (int): "))
@@ -108,7 +164,6 @@ def savetest():
         playerint = int(input("Sisesta INT (int): "))
         playerluck = int(input("Sisesta LUCK (int): "))
         playerspecials = input("Sisesta SPECIALS (string): ")
-
         relv = input("Sisesta relva nimi (string): ")
         relv_min = 1
         relv_min = relv_min+(playerattack*2.5)
@@ -130,7 +185,7 @@ def savetest():
         playerskoor = int(input("Sisesta skoor (int): "))
 
 
-    f= open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
+    f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
     f.write(f"Nimi: {nimi}\n")
     f.write(f"Level: {playerlevel} ({xp_current}XP/{xp_needed}XP)\n")
     f.write("---------------------\n")
@@ -207,7 +262,7 @@ def newchar():
     playerclass = "Maag"
     playerskoor = 0
 
-    f= open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
+    f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
     f.write(f"Nimi: {nimi}\n")
     f.write(f"Level: {playerlevel} ({xp_current}XP/{xp_needed}XP)\n")
     f.write("---------------------\n")
@@ -233,8 +288,7 @@ def newchar():
     main()
     
 def loadtest():
-    import re
-    debug = 1
+
     global playerattack
     global playerdef
     global playerdef2
@@ -283,7 +337,7 @@ def loadtest():
                         playerdef = s[0]
                         a2 = a3[2]
                         s = re.findall(r"[-+]?\d*\.\d+|\d+", a2)
-                        playerdef2 = s[0]
+                        playerdef2 = int(s[0])
 
                 # dex(korras)
             with open(f"SAVE/{nimi}.txt","r", encoding="UTF-8") as fp:
@@ -296,7 +350,7 @@ def loadtest():
                         a2 = a3 = line.split();
                         a2 = a2[1]
                         s = re.findall(r"[-+]?\d*\.\d+|\d+", a2)
-                        playerdex = s[0]
+                        playerdex = int(s[0])
                 #atk (korras)
             with open(f"SAVE/{nimi}.txt","r", encoding="UTF-8") as fp:
                 line_numbers = [3]
@@ -308,7 +362,7 @@ def loadtest():
                         a2 = a3 = line.split();
                         a2 = a2[1]
                         s = re.findall(r"[-+]?\d*\.\d+|\d+", a2)
-                        playerattack = s[0] 
+                        playerattack = int(s[0])
             
                 # mana(korras)
             with open(f"SAVE/{nimi}.txt","r", encoding="UTF-8") as fp:
@@ -321,7 +375,7 @@ def loadtest():
                         a2 = a3 = line.split();
                         a2 = a2[1]
                         s = re.findall(r"[-+]?\d*\.\d+|\d+", a2)
-                        playermana = s[0] 
+                        playermana = int(s[0])
                 # int (korras)
             with open(f"SAVE/{nimi}.txt","r", encoding="UTF-8") as fp:
                 line_numbers = [7]
@@ -333,7 +387,7 @@ def loadtest():
                         a2 = a3 = line.split();
                         a2 = a2[1]
                         s = re.findall(r"[-+]?\d*\.\d+|\d+", a2)
-                        playerint = s[0]
+                        playerint = int(s[0])
                 # luck(korras)
             with open(f"SAVE/{nimi}.txt","r", encoding="UTF-8") as fp:
                 line_numbers = [8]
@@ -345,7 +399,7 @@ def loadtest():
                         a2 = a3 = line.split();
                         a2 = a2[1]
                         s = re.findall(r"[-+]?\d*\.\d+|\d+", a2)
-                        playerluck = s[0]
+                        playerluck = int(s[0])
                 # specials (korras)
             with open(f"SAVE/{nimi}.txt","r", encoding="UTF-8") as fp:
                 line_numbers = [9]
@@ -366,7 +420,7 @@ def loadtest():
                         a1.append(line.strip())
                         a2 = str(a1[0])
                         a2 = line.split()
-                        playerlevel = a2[1]
+                        playerlevel = int(a2[1])
                 # relv
             with open(f"SAVE/{nimi}.txt","r", encoding="UTF-8") as fp:
                 line_numbers = [11]
@@ -399,7 +453,7 @@ def loadtest():
                         a2 = a3 = line.split();
                         a2 = a2[2]
                         s = re.findall(r"[-+]?\d*\.\d+|\d+", a2)
-                        relv_min = s[0]
+                        relv_min = float(s[0])
             with open(f"SAVE/{nimi}.txt","r", encoding="UTF-8") as fp:
                 line_numbers = [3]
                 a1 = []
@@ -411,7 +465,7 @@ def loadtest():
                         a2 = a2[2]
                         s = re.findall(r"[-+]?\d*\.\d+|\d+", a2)
                         relv_max = s[1]
-                        relv_max = relv_max.replace("-", "")
+                        relv_max = float(relv_max.replace("-", ""))
                
                     
                 # ruu (korras)
@@ -435,7 +489,7 @@ def loadtest():
                         a1.append(line.strip())
                         a2 = str(a1[0])
                         s = re.findall(r"[-+]?\d*\.\d+|\d+", a2)
-                        ruu_def = s[0]
+                        ruu_def = int(s[0])
                
                     
                 # aksessuaar (korras)
@@ -474,7 +528,7 @@ def loadtest():
                         a2 = line.split()
                         a2 = a2[2]
                         s = re.findall(r"[-+]?\d*\.\d+|\d+", a2)
-                        xp_current = s[0]
+                        xp_current = int(s[0])
                                 
 
 
@@ -489,7 +543,7 @@ def loadtest():
                             a2 = line.split()
                             a2 = a2[2]
                             s = re.findall(r"[-+]?\d*\.\d+|\d+", a2)
-                            xp_needed = s[1]
+                            xp_needed = int(s[1])
                                 
 
                 # class (korras)
@@ -511,12 +565,12 @@ def loadtest():
                         a1.append(line.strip())
                         a2 = str(a1[0])
                         a2 = line.split()
-                        playerskoor = a2[1]
+                        playerskoor = int(a2[1])
 
             lines += 1 #eritab line'e
+    
     if debug == 1:
         try:
-            
             print(f"playerattack: {playerattack}")
             print(f"playerdef: {playerdef}")
             print(f"playerdef2: {playerdef2}")
@@ -537,10 +591,13 @@ def loadtest():
             print(f"xp_needed: {xp_needed}")
             print(f"playerclass: {playerclass}")
             print(f"playerskoor: {playerskoor}")
+            print("")
+            input("Enter")
+            main()
         except:
             print("midagi on katki")
-        
+    level_up_check()
 
 
 
-main()
+start()
