@@ -148,7 +148,7 @@ def main():
 
                     Pea-Arendaja: Sten Soomre
                     Kaas-Arendaja: Erik Teppan
-                    
+                    NPC: Artjom the Russian (suvakas)
                     
                     
                     Tänud kõikidele inimestele,
