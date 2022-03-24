@@ -37,9 +37,15 @@ def start():
     global kas
     global turn2
     global turn
+    global item1
+    global item2
+    global item3
+    global munt
     debug = 0
     turn2 = 0
     turn = 0
+    munt = 0
+    item1, item2, item3 = "mõõk","rüü","puitkepp"
     kas = "[0]"
     main()
 # Sätti see '1', et muuta allolevaid muutujaid kergesti :)
@@ -138,9 +144,7 @@ def main():
         main()
     if s == "TEST9":
         os.system("cls")
-        print("Veel pole midagi siin ):")
-        sleep(5)
-        main()
+        pood()
     if s == "DEBUG":
         os.system("cls")
         if debug == 0:
@@ -721,10 +725,6 @@ def atrituubid():
     enemychance = round(((enemyluck*0.8)+50),0)
     if enemychance >=95:
         enemychance = 95
-    #Loot
-    relv = playerdmg
-    rüü =
-    akse =
     #attackid
 #1/10000000
     randomnimi()
@@ -744,7 +744,7 @@ def randomnimi():
     global leg
     global balls
     nimevalik = ["Paganlane", "Rammus Paganlane", "Tempokas Paganlane","Joobes Paganlane","Seiklev COOP"]
-    enemyname = nimevalik[randint(0,3)]
+    enemyname = nimevalik[randint(0,len(nimevalik)-1)]
     print(enemyname)
     if enemyname == "Paganlane":
         pass
@@ -830,6 +830,7 @@ def combat():
         xp_current += aaaah
         level_up_check()
         sleep(5)
+        #Loot
         main()
             #UI
     print(f"""
@@ -967,6 +968,7 @@ def combat1():
         
 def pood():
     
+    clear()
     global nimi
     global playerattack
     global playerdef
@@ -989,20 +991,61 @@ def pood():
     global playerclass
     global playerskoor
     global munt
+    global item1
+    global item2
+    global item3
+    price1, price2, price3 = 5, 10, 15
     
-
     print(f"""
+ 
+ ALKO1000
+ Ardo Metssalu
+"mida soovid?"
 
 
 
-
-
+rahakott: {munt}
+[1] - {item1} | {price1}
+[2] - {item2} | {price2}
+[3] - {item3} | {price3}
 
 
 """)
+    pood2 = input("Mida sa soovid osta?: ").upper()   #Mängija turn
+    if pood2 == "1":
+        if item1 == "ostetud":
+            pass
+        else:
+            if munt > price1:
+               munt -= price1
+               item1 = "ostetud"
+               pood()
+    if pood2 == "2":
+        if item2 == "ostetud":
+            pass
+        else:
+            if munt > price2:
+               munt -= price2
+               item2 = "ostetud"
+               pood()
 
-
-
+    if pood2 == "3":
+        if item3 == "ostetud":
+            pass
+        else:
+            if munt > price3:
+               munt -= price3
+               item3 = "ostetud"
+               #Lisa inventory
+            
+               
+               pood()
+    
+               
+        
+           
+        
+        
 
 
 start()
