@@ -4,6 +4,33 @@ import os
 import re
 def clear():
     os.system("cls")
+def clearacc():
+    global nimi
+    global playerattack
+    global playerdef
+    global playerdex
+    global playermana
+    global playerint
+    global playerluck
+    global playerspecials
+    global playerlevel # Mariole muidugi meeldib ;)
+    global relv
+    global relv_min
+    global relv_max
+    global ruu
+    global ruu_def
+    global relva_info
+    global aksessuaar
+    global aksessuaar_info
+    global xp_current
+    global xp_needed
+    global playerclass
+    global playerskoor
+    f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
+    f.write(f"")
+    f.close()
+    pass
+    
 def start():
     global debug
     global kas
@@ -36,14 +63,14 @@ def main():
     if turn2 > 0:
         playerdef2 = ruu_def + playerdef
         playerchance = playerluck+50
-        playerhp = 75*(playerlevel*1.25)
+        playerhp = 75*(playerlevel*1.05)
         playerhp2 = playerhp;
-        playerattack = 1*(playerlevel*1.25)
-        playerdef = 1*(playerlevel*1.25)
-        playerdex = 1*(playerlevel*1.25)
-        playermana = 1*(playerlevel*1.25)
-        playerint = 1*(playerlevel*1.25)
-        playerluck = 1*(playerlevel*1.25)
+        playerattack = 1*(playerlevel*1.12)
+        playerdef = 1*(playerlevel*1.12)
+        playerdex = 1*(playerlevel*1.12)
+        playermana = 1*(playerlevel*1.12)
+        playerint = 1*(playerlevel*1.12)
+        playerluck = 1*(playerlevel*1.12)
         relv_min = (playerattack*2.0)
         relv_max = (playerattack*2.5)
     s = None
@@ -117,27 +144,23 @@ def main():
             kas = "[0]"
         main()
     if s == "PLAYER":
-        print(f"nimi: {nimi}")
-        print(f"playerattack: {playerattack}")
-        print(f"playerdef: {playerdef}")
-        print(f"playerdef2: {playerdef2}")
-        print(f"playerdex: {playerdex}")
-        print(f"playermana: {playermana}")
-        print(f"playerint: {playerint}")
-        print(f"playerluck: {playerluck}")
-        print(f"playerspecials: {playerspecials}")
-        print(f"playerlevel: {playerlevel}")
-        print(f"relv: {relv}")
-        print(f"relv_min: {relv_min}")
-        print(f"relv_max: {relv_max}")
-        print(f"ruu: {ruu}")
-        print(f"ruu_def: {ruu_def}")
-        print(f"aksessuaar: {aksessuaar}")
-        print(f"aksessuaar_info: {aksessuaar_info}")
-        print(f"xp_current: {xp_current}")
-        print(f"xp_needed: {xp_needed}")
-        print(f"playerclass: {playerclass}")
-        print(f"playerskoor: {playerskoor}")
+        print(f"Nimi: {nimi}")
+        print(f"Level: {playerlevel} ({xp_current}XP/{xp_needed}XP)")
+        print("---------------------")
+        print(f"ATK: {playerattack} ({relv_min}-{relv_max})DMG")
+        print(f"DEF: {playerdef} ({playerdef2})")
+        print(f"DEX: {playerdex}")
+        print(f"MANA: {playermana}")
+        print(f"INT: {playerint}")
+        print(f"LUCK: {playerluck}")
+        print(f"SPECIALS: {playerspecials}")
+        print("---------------------")
+        print(f"RELV: {relv} {relva_info}")
+        print(f"RÜÜ: {ruu} +({ruu_def} DEF)")
+        print(f"AKSESSUAAR: {aksessuaar} {aksessuaar_info}")
+        print("---------------------")
+        print(f"Klass: {playerclass}")
+        print(f"Skoor: {playerskoor}")
         print("")
         input("Enter")
         main()
@@ -159,7 +182,7 @@ def main():
         main()
     else:
         print(f"Vigane Käsk {s}")
-        sleep(5)
+        sleep(1)
         main()
 
 def level_up_check():
@@ -645,7 +668,10 @@ def atrituubid():
     global playerdef2
     global ruu_def
     
-    playerchance = playerluck+50
+    playerchance = round(((playerluck*0.8)+50),0)
+    if playerchance >=95:
+        playerchance = 95
+
     playerhp = 100+50*(playerlevel*0.25)
     playerhp2 = playerhp;
     playerattack = 1*(playerlevel*0.25)
@@ -658,13 +684,17 @@ def atrituubid():
     juhtus1 = ""
     #Enemy
     enemylevel = playerlevel + randint(-2,2)
+    if enemylevel <= 0:
+        enemylevel = playerlevel + randint(1,2)
     enemyhp = 50*(enemylevel*0.25)
     enemyhp2 = enemyhp;
     enemyattack = round((randint(1,10)/5*enemylevel),0)
     enemydex = enemylevel*2
     enemydef = enemylevel*2
     enemyluck = enemylevel-2
-    enemychance = enemyluck+50
+    enemychance = round(((enemyluck*0.8)+50),0)
+    if enemychance >=95:
+        enemychance = 95
     #attackid
 #1/10000000
     randomnimi()
@@ -751,6 +781,7 @@ def combat():
     if playerhp <= 0:
         print("Sa surid")
         sleep(5)
+        clearacc()
         main()
     elif enemyhp <= 0:
         aaaah = randint(1,100)*playerlevel
@@ -766,16 +797,20 @@ def combat():
             
     print(f"""
 
- Vastane: {enemyname}
- HP: ({enemyhp}/{enemyhp2})
+ Vastane: {enemyname}                  
+ HP: ({enemyhp}/{enemyhp2}) | LEVEL: {enemylevel}
+ Võimalus pihta saada: {playerchance}%
+
 
 
  Sina: {juhtus}
  Vastane: {juhtus1}
 
 
- Sina: {nimi} 
- HP: ({playerhp}/{playerhp2})
+ Sina: {nimi}      
+ HP: ({playerhp}/{playerhp2}) | LEVEL: {playerlevel}
+ Võimalus pihta saada: {enemychance}%
+
 
 [1] - Nõrgalt    | +25% Pihtasaamis võimalus | -25% Tugevam löök
 [2] - Keskmiselt | Tavaline löök
@@ -784,10 +819,10 @@ def combat():
 """)
     test = input("Kui tugevasti lööd? ").upper()
     if test == "1":            
-        playerdmg = randint(relv_min*10,relv_max*10)/10
+        playerdmg = randint(relv_min*100000000000,relv_max*100000000000)/100000000000
         playerdmg = playerdmg*75/100
-        playerchance = playerchance + 25
-        if (randint(0,100)<=playerchance):               
+        playerchance1 = (playerchance + 25);
+        if (randint(0,100)<=playerchance1):               
             juhtus = f"Sa slappisid teda vastu põske | -{playerdmg}dmg" #Nõrgalt
             if (playerdmg-enemydef)<=0:
                 juhtus1 = "Su ema karjus su peale ja sa ehmatasid"
@@ -797,7 +832,7 @@ def combat():
             juhtus = "Su ema karjus su peale ja sa ehmatasid"
         combat1()
     elif test == "2":
-        playerdmg = randint(relv_min*10,relv_max*10)/10
+        playerdmg = randint(relv_min*100000000000,relv_max*100000000000)/100000000000
         if (randint(0,100)<=playerchance):               
             juhtus = f"Sa lõid teda | -{playerdmg}dmg"  #Keskmiselt
             if (playerdmg-enemydef)<=0:
@@ -808,10 +843,10 @@ def combat():
             juhtus = "Sa komistasid"
         combat1()
     elif test == "3":
-        playerdmg = randint(relv_min*10,relv_max*10)/10
+        playerdmg = randint(relv_min*100000000000,relv_max*100000000000)/100000000000
         playerdmg = playerdmg + 25
-        playerchance = playerchance*75/100
-        if (randint(0,100)<=playerchance):               
+        playerchance1 = (playerchance*75/100);
+        if (randint(0,100)<=playerchance1):               
             juhtus = f"Sa kogusid kõik oma mehise jõu ja antsid enda parima löögi mida Eesti näinud on | -{playerdmg}dmg" #Tugevalt
             if (playerdmg-enemydef)<=0:
                 juhtus1 = "Suure jõu kogumiseajal, punnitasid liiga kõvasti, sittudes endale püksi"
@@ -820,6 +855,9 @@ def combat():
         else:
             juhtus = "Suure jõu kogumiseajal, punnitasid liiga kõvasti, sittudes endale püksi"
         combat1()
+    else:
+        juhtus = "Sa ei teinud sittagi :)"
+        combat()
             
 def combat1():
     
@@ -854,7 +892,7 @@ def combat1():
     clear()    
             
     if (randint(1,1000000) == 1):
-        enemydmg = randint(balls*800,balls*1200)/1000
+        enemydmg = randint(balls*8000000000,balls*12000000000)/10000000000
         if (randint(0,100)<=enemychance):               
             juhtus1 = f"Sa said jaladega munadesse :c | -{enemydmg}dmg"  #Balls
             if (enemydmg-playerdef2)<=0:
@@ -865,7 +903,7 @@ def combat1():
         else:
             juhtus1 = "Ta lõi mööda"
     elif (randint(1,2) == 1):
-        enemydmg = randint(leg*800,leg*1200)/1000
+        enemydmg = randint(leg*8000000000,leg*12000000000)/10000000000
         if (randint(0,100)<=enemychance):               
             juhtus1 = f"Ta lõi jalga sind | -{enemydmg}dmg"  #Leg
             if (enemydmg-playerdef2)<=0:
@@ -876,7 +914,7 @@ def combat1():
         else:
             juhtus1 = "Ta tegi backflippi ja failis"
     else:
-        enemydmg = randint(headshot*800,headshot*1200)/1000
+        enemydmg = randint(headshot*8000000000,headshot*12000000000)/10000000000
         if (randint(0,100)<=enemychance):               
             juhtus1 = f"Ta 360 noskoop sind otse näkku | -{enemydmg}dmg"  #Headshot
             if (enemydmg-playerdef2)<=0:
