@@ -721,6 +721,10 @@ def atrituubid():
     enemychance = round(((enemyluck*0.8)+50),0)
     if enemychance >=95:
         enemychance = 95
+    #Loot
+    relv = playerdmg
+    rüü =
+    akse =
     #attackid
 #1/10000000
     randomnimi()
@@ -739,7 +743,7 @@ def randomnimi():
     global headshot
     global leg
     global balls
-    nimevalik = ["Paganlane", "Rammus Paganlane", "Tempokas Paganlane","Joobes Paganlane"]
+    nimevalik = ["Paganlane", "Rammus Paganlane", "Tempokas Paganlane","Joobes Paganlane","Seiklev COOP"]
     enemyname = nimevalik[randint(0,3)]
     print(enemyname)
     if enemyname == "Paganlane":
@@ -757,6 +761,10 @@ def randomnimi():
         if randint(1,200)==1:
             enemyattack += 4000
             enemyluck -= 49
+        
+    elif enemyname == "Seiklev COOP":
+        if randint(1,5)==1:
+            pood()
         else:
             randomnimi()
         #enemydmg = randint(enemyattack*0.8,enemyattack*1.2)
@@ -823,7 +831,7 @@ def combat():
         level_up_check()
         sleep(5)
         main()
-            
+            #UI
     print(f"""
 
  Vastane: {enemyname}                  
@@ -837,7 +845,7 @@ def combat():
 
 
  Sina: {nimi}      
- HP: ({playerhp}/{playerhp2}) | LEVEL: {playerlevel}
+ HP: ({playerhp}/{playerhp2}) | LEVEL: {playerlevel} 
  Võimalus pihta saada: {enemychance}%
 
 
@@ -846,7 +854,7 @@ def combat():
 [3] - Tugevalt   | +25% Tugevam löök         | -25% Pihtasaamis võimalus
 
 """)
-    test = input("Kui tugevasti lööd? ").upper()
+    test = input("Kui tugevasti lööd? ").upper()   #Mängija turn
     if test == "1":            
         playerdmg = randint(relv_min*100000000000,relv_max*100000000000)/100000000000
         playerdmg = playerdmg*75/100
@@ -878,11 +886,11 @@ def combat():
         if (randint(0,100)<=playerchance1):               
             juhtus = f"Sa kogusid kõik oma mehise jõu ja antsid enda parima löögi mida Eesti näinud on | -{playerdmg}dmg" #Tugevalt
             if (playerdmg-enemydef)<=0:
-                juhtus1 = "Suure jõu kogumiseajal, punnitasid liiga kõvasti, sittudes endale puksi"
+                juhtus1 = "Suure jõu kogumiseajal, punnitasid liiga kõvasti, sittudes endale püksi"
             else:
                 enemyhp = enemyhp - (playerdmg-enemydef)
         else:
-            juhtus = "Suure jõu kogumiseajal, punnitasid liiga kõvasti, sittudes endale puksi"
+            juhtus = "Suure jõu kogumiseajal, punnitasid liiga kõvasti, sittudes endale püksi"
         combat1()
     else:
         juhtus = "Sa ei teinud sittagi :)"
@@ -920,7 +928,7 @@ def combat1():
     global juhtus1
     clear()    
             
-    if (randint(1,1000000) == 1):
+    if (randint(1,1000000) == 1):           #Vastase turn
         enemydmg = randint(balls*8000000000,balls*12000000000)/10000000000
         if (randint(0,100)<=enemychance):               
             juhtus1 = f"Sa said jaladega munadesse :c | -{enemydmg}dmg"  #Balls
@@ -947,17 +955,53 @@ def combat1():
         if (randint(0,100)<=enemychance):               
             juhtus1 = f"Ta 360 noskoop sind otse näkku | -{enemydmg}dmg"  #Headshot
             if (enemydmg-playerdef2)<=0:
-                juhtus1 = "Ema helistas talle ja kusis 'Kus ta stringid on?'"
+                juhtus1 = "Ema helistas talle ja küsis 'Kus ta stringid on?'"
             else:
                 playerhp = playerhp - (enemydmg-playerdef2)
         else:
-            juhtus1 = "Ema helistas talle ja kusis 'Kus ta stringid on?'"
+            juhtus1 = "Ema helistas talle ja küsis 'Kus ta stringid on?'"
     playerhp = round(playerhp,0)
     enemyhp = round(enemyhp,0)
 
     combat()
         
-        
+def pood():
+    
+    global nimi
+    global playerattack
+    global playerdef
+    global playerdex
+    global playermana
+    global playerint
+    global playerluck
+    global playerspecials
+    global playerlevel # Mariole muidugi meeldib ;)
+    global relv
+    global relv_min
+    global relv_max
+    global ruu
+    global ruu_def
+    global relva_info
+    global aksessuaar
+    global aksessuaar_info
+    global xp_current
+    global xp_needed
+    global playerclass
+    global playerskoor
+    global munt
+    
+
+    print(f"""
+
+
+
+
+
+
+
+""")
+
+
 
 
 
