@@ -26,6 +26,7 @@ def clearacc():
     global xp_needed
     global playerclass
     global playerskoor
+    global munt
     f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
     f.write(f"")
     f.close()
@@ -90,6 +91,7 @@ def main():
           Armory and equiping test - TEST6
                  Story             - TEST7
                  Map?              - TEST8
+                 Pood ? COOP äkki  - TEST9
           -----------------------------------------------
                 Debug mode {kas}     - DEBUG (done)
                  Player test       - PLAYER
@@ -134,6 +136,11 @@ def main():
         print("Veel pole midagi siin ):")
         sleep(5)
         main()
+    if s == "TEST9":
+        os.system("cls")
+        print("Veel pole midagi siin ):")
+        sleep(5)
+        main()
     if s == "DEBUG":
         os.system("cls")
         if debug == 0:
@@ -156,11 +163,12 @@ def main():
         print(f"SPECIALS: {playerspecials}")
         print("---------------------")
         print(f"RELV: {relv} {relva_info}")
-        print(f"RÜÜ: {ruu} +({ruu_def} DEF)")
+        print(f"Ruu: {ruu} +({ruu_def} DEF)")
         print(f"AKSESSUAAR: {aksessuaar} {aksessuaar_info}")
         print("---------------------")
         print(f"Klass: {playerclass}")
         print(f"Skoor: {playerskoor}")
+        print(f"munt: {munt}")
         print("")
         input("Enter")
         main()
@@ -217,6 +225,7 @@ def savetest():
     global xp_needed
     global playerclass
     global playerskoor
+    global munt
 
     f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
     f.write(f"Nimi: {nimi}\n")
@@ -231,11 +240,12 @@ def savetest():
     f.write(f"SPECIALS: {playerspecials}\n")
     f.write("---------------------\n")
     f.write(f"RELV: {relv} {relva_info}\n")
-    f.write(f"RÜÜ: {ruu} +({ruu_def} DEF)\n")
+    f.write(f"Ruu: {ruu} +({ruu_def} DEF)\n")
     f.write(f"AKSESSUAAR: {aksessuaar} {aksessuaar_info}\n")
     f.write("---------------------\n")
     f.write(f"Klass: {playerclass}\n")
     f.write(f"Skoor: {playerskoor}\n")
+    f.write(f"munt: {munt}\n")
     f.close()
     sleep(1)
     print("")
@@ -268,6 +278,7 @@ def newchar():
     global xp_needed
     global playerclass
     global playerskoor
+    global munt
     nimi = input("Siseta nimi: ")
     playerattack = 1
     playerdef = 1
@@ -276,6 +287,7 @@ def newchar():
     playerint = 1
     playerluck = 1
     playerspecials = None
+    munt = 0
 
     relv = "Oks"
     relv_min = 1
@@ -296,6 +308,7 @@ def newchar():
         level_up_check()
     playerclass = "Maag"
     playerskoor = 0
+    munt2 = 0
 
     f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
     f.write(f"Nimi: {nimi}\n")
@@ -310,11 +323,12 @@ def newchar():
     f.write(f"SPECIALS: {playerspecials}\n")
     f.write("---------------------\n")
     f.write(f"RELV: {relv} {relva_info}\n")
-    f.write(f"RÜÜ: {ruu} +({ruu_def} DEF)\n")
+    f.write(f"Ruu: {ruu} +({ruu_def} DEF)\n")
     f.write(f"AKSESSUAAR: {aksessuaar} {aksessuaar_info}\n")
     f.write("---------------------\n")
     f.write(f"Klass: {playerclass}\n")
     f.write(f"Skoor: {playerskoor}\n")
+    f.write(f"munt: {munt}\n")
     f.close()
     sleep(1)
     print("")
@@ -346,6 +360,7 @@ def loadtest():
     global playerclass
     global relva_info
     global playerskoor
+    global munt
     lines = 1
     nimi = input("Sisesta oma eelmise characteri nimi: ")
     f = open(f"SAVE/{nimi}.txt","r", encoding="UTF-8")
@@ -602,6 +617,15 @@ def loadtest():
                         a2 = str(a1[0])
                         a2 = line.split()
                         playerskoor = float(a2[1])
+            with open(f"SAVE/{nimi}.txt","r", encoding="UTF-8") as fp:
+                line_numbers = [17]
+                a1 = []
+                for i, line in enumerate(fp):
+                    if i in line_numbers:
+                        a1.append(line.strip())
+                        a2 = str(a1[0])
+                        a2 = line.split()
+                        munt = float(a2[1])
 
             lines += 1 #eritab line'e
     
@@ -627,6 +651,8 @@ def loadtest():
         print(f"xp_needed: {xp_needed}")
         print(f"playerclass: {playerclass}")
         print(f"playerskoor: {playerskoor}")
+        print(f"munt: {munt}")
+        
         print("")
         input("Enter")
     level_up_check()
@@ -768,6 +794,7 @@ def combat():
     global juhtus1
     global turn
     global playerskoor
+    global munt
     global enemydef
     clear()
     if turn==0:
@@ -786,9 +813,11 @@ def combat():
     elif enemyhp <= 0:
         aaaah = randint(1,100)*playerlevel
         aaaah2 = randint(1,10)*enemylevel
+        munt += round((randint(1,20)+(0.8*enemylevel)),0)
         print("Sa võitsid")
         print(f"+{aaaah} XP")
         print(f"+{aaaah2} skoor")
+        print(f"+{munt} munte")
         playerskoor += aaaah2
         xp_current += aaaah
         level_up_check()
@@ -849,11 +878,11 @@ def combat():
         if (randint(0,100)<=playerchance1):               
             juhtus = f"Sa kogusid kõik oma mehise jõu ja antsid enda parima löögi mida Eesti näinud on | -{playerdmg}dmg" #Tugevalt
             if (playerdmg-enemydef)<=0:
-                juhtus1 = "Suure jõu kogumiseajal, punnitasid liiga kõvasti, sittudes endale püksi"
+                juhtus1 = "Suure jõu kogumiseajal, punnitasid liiga kõvasti, sittudes endale puksi"
             else:
                 enemyhp = enemyhp - (playerdmg-enemydef)
         else:
-            juhtus = "Suure jõu kogumiseajal, punnitasid liiga kõvasti, sittudes endale püksi"
+            juhtus = "Suure jõu kogumiseajal, punnitasid liiga kõvasti, sittudes endale puksi"
         combat1()
     else:
         juhtus = "Sa ei teinud sittagi :)"
@@ -918,11 +947,11 @@ def combat1():
         if (randint(0,100)<=enemychance):               
             juhtus1 = f"Ta 360 noskoop sind otse näkku | -{enemydmg}dmg"  #Headshot
             if (enemydmg-playerdef2)<=0:
-                juhtus1 = "Ema helistas talle ja küsis 'Kus ta stringid on?'"
+                juhtus1 = "Ema helistas talle ja kusis 'Kus ta stringid on?'"
             else:
                 playerhp = playerhp - (enemydmg-playerdef2)
         else:
-            juhtus1 = "Ema helistas talle ja küsis 'Kus ta stringid on?'"
+            juhtus1 = "Ema helistas talle ja kusis 'Kus ta stringid on?'"
     playerhp = round(playerhp,0)
     enemyhp = round(enemyhp,0)
 
