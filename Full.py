@@ -37,15 +37,11 @@ def start():
     global kas
     global turn2
     global turn
-    global item1
-    global item2
-    global item3
     global munt
     debug = 0
     turn2 = 0
     turn = 0
     munt = 0
-    item1, item2, item3 = "mõõk","rüü","puitkepp"
     kas = "[0]"
     main()
 # Sätti see '1', et muuta allolevaid muutujaid kergesti :)
@@ -67,19 +63,6 @@ def main():
     global ruu_def
     global relv_min
     global relv_max
-    if turn2 > 0:
-        playerdef2 = ruu_def + playerdef
-        playerchance = round((playerluck+50),0)
-        playerhp = round((75*(playerlevel*1.05)),0)
-        playerhp2 = playerhp;
-        playerattack = round((1*(playerlevel*1.12)),0)
-        playerdef = round((1*(playerlevel*1.12)),0)
-        playerdex = round((1*(playerlevel*1.12)),0)
-        playermana = round((1*(playerlevel*1.12)),0)
-        playerint = round((1*(playerlevel*1.12)),0)
-        playerluck = round((1*(playerlevel*1.12)),0)
-        relv_min = round((playerattack*2.0),0)
-        relv_max = round((playerattack*2.5),0)
     s = None
     clear()
     print(f"""
@@ -144,6 +127,7 @@ def main():
         main()
     if s == "TEST9":
         os.system("cls")
+        shopreset()
         pood()
     if s == "DEBUG":
         os.system("cls")
@@ -198,12 +182,61 @@ def main():
         main()
 
 def level_up_check():
+    global nimi
+    global playerattack
+    global playerdef
+    global playerdex
+    global playermana
+    global playerint
+    global playerluck
+    global playerspecials
+    global playerlevel # Mariole muidugi meeldib ;)
+    global relv
+    global relv_min
+    global relv_max
+    global ruu
+    global ruu_def
+    global relva_info
+    global aksessuaar
+    global aksessuaar_info
+    global xp_current
+    global xp_needed
+    global playerclass
+    global playerskoor
+    global munt
     global xp_current # Global on supreme
     global xp_needed # Global on supreme
-    global playerlevel # Global on supreme
+    global playerlevel # Global on supreme    global playerattack3
+    global playerdef3
+    global playerdex3
+    global playermana3
+    global playerint3
+    global playerluck3
     if xp_current>xp_needed: # Kui xp on suurem kui xp max
             xp_current -= xp_needed # võta maha
             playerlevel += 1 # level up :)
+            #########################
+            playerattack3 = playerattack;
+            playerdef3 = playerdef;
+            playerdex3 = playerdex;
+            playermana3 = playermana;
+            playerint3 = playerint;
+            playerluck3 = playerluck;
+            #########################
+            playerdef2 = ruu_def + playerdef
+            playerchance = round((playerluck3+(playerluck+50)),0)
+            if playerchance >=95:
+                playerchance = 95
+            playerhp = round((75*(playerlevel*1.05)),0)
+            playerhp2 = playerhp;
+            playerattack = round((playerattack3*(playerlevel*1.12)),0)
+            playerdef = round((playerdef3*(playerlevel*1.12)),0)
+            playerdex = round((playerdex3*(playerlevel*1.12)),0)
+            playermana = round((playermana3*(playerlevel*1.12)),0)
+            playerint = round((playerint3*(playerlevel*1.12)),0)
+            playerluck = round((playerluck3*(playerlevel*1.12)),0)
+            relv_min = round((playerattack*2.0),0)
+            relv_max = round((playerattack*2.5),0)
             print(f"Level up! \nLeveled to {playerlevel}!!")
             xp_needed = round(xp_needed+(playerlevel*100.275),0)
             level_up_check()
@@ -215,6 +248,12 @@ def savetest():
     global playermana
     global playerint
     global playerluck
+    global playerattack3
+    global playerdef3
+    global playerdex3
+    global playermana3
+    global playerint3
+    global playerluck3
     global playerspecials
     global playerlevel # Mariole muidugi meeldib ;)
     global relv
@@ -283,34 +322,241 @@ def newchar():
     global playerclass
     global playerskoor
     global munt
+    global playerhp
+    global playerhp
+    
     nimi = input("Siseta nimi: ")
-    playerattack = 1
-    playerdef = 1
-    playerdex = 1
-    playermana = 1
-    playerint = 1
-    playerluck = 1
-    playerspecials = None
-    munt = 0
+    soov = input("""
+ Mis klassitüüpina tahad mängida?
+ 
+ [1] - Mõõgamees
+ [2] - Vibumees
+ [3] - Maag
+ [4] - Nõid
+ [5] - Laps
+ [6] - Talumees
+ [7] - Mario (jumal)
+ [8] - Kalevipoeg
+ [9] - Joodik 
+ [10] - Mentaalse hälvega
 
-    relv = "Oks"
-    relv_min = 1
-    relv_min = relv_min+(playerattack*2.5)
-    relv_max = 2
-    relv_max = relv_max+(playerattack*2.5)
-    relva_info = "\"Vanakoolne puit oks\""
-    ruu = "Saapad"
-    ruu_def = 2
-    playerdef2 = ruu_def + playerdef
-    aksessuaar = "Nöör"
+""")
+    if soov == "1":
+        playerclass = "Mõõgamees"
+        playerattack = 2
+        playerdef = 1
+        playerdex = 0
+        playermana = 0
+        playerint = 0
+        playerluck = 1
+        playerspecials = "Oskus"
+        munt = 2
+        relv = "Ekskalibur"
+        relv_min = 1
+        relv_min = relv_min+(playerattack*2.5)
+        relv_max = 2
+        relv_max = relv_max+(playerattack*2.5)
+        relva_info = "\"Kivist-võetud\""
+        ruu = "Rüü"
+        ruu_def = 5
+        playerdef2 = ruu_def + playerdef
+        aksessuaar = "Saapanõõrid"
+    elif soov == "2":
+        playerclass = "Vibumees"
+        playerattack = 1
+        playerdef = 0
+        playerdex = 4
+        playermana = 0
+        playerint = 1
+        playerluck = 2
+        playerspecials = "Täpsus"
+        munt = 0
+        relv = "Vibu"
+        relv_min = 1
+        relv_min = relv_min+(playerattack*2.5)
+        relv_max = 2
+        relv_max = relv_max+(playerattack*2.5)
+        relva_info = "\"Nooltega\""
+        ruu = "Noolehoidla"
+        ruu_def = 2
+        playerdef2 = ruu_def + playerdef
+        aksessuaar = "Binokkel"
+    elif soov == "3":
+        playerclass = "Maag"
+        playerattack = 1
+        playerdef = 1
+        playerdex = 1
+        playermana = 4
+        playerint = 4
+        playerluck = 0
+        playerspecials = "Maagia"
+        munt = 0
+        relv = "Kepp"
+        relv_min = 1
+        relv_min = relv_min+(playerattack*2.5)
+        relv_max = 2
+        relv_max = relv_max+(playerattack*2.5)
+        relva_info = "\"Kummist\""
+        ruu = "Keep"
+        ruu_def = 2
+        playerdef2 = ruu_def + playerdef
+        aksessuaar = "Vunts"
+    elif soov == "4":
+        playerclass = "Nõid"
+        playerattack = 1
+        playerdef = 1
+        playerdex = 1
+        playermana = 4
+        playerint = 4
+        playerluck = 0
+        playerspecials = "Maagia"
+        munt = 0
+        relv = "Luud"
+        relv_min = 1
+        relv_min = relv_min+(playerattack*2.5)
+        relv_max = 2
+        relv_max = relv_max+(playerattack*2.5)
+        relva_info = "\"Puidust\""
+        ruu = "Keep"
+        ruu_def = 2
+        playerdef2 = ruu_def + playerdef
+        aksessuaar = "Nõia-Müts"
+    elif soov == "5":
+        playerclass = "Laps"
+        playerattack = 3
+        playerdef = 0
+        playerdex = 0
+        playermana = 0
+        playerint = 0
+        playerluck = 4
+        playerspecials = "Lollkas"
+        munt = 15 #taskuraha
+        relv = "Lego"
+        relv_min = 1
+        relv_min = relv_min+(playerattack*2.5)
+        relv_max = 2
+        relv_max = relv_max+(playerattack*2.5)
+        relva_info = "\"Ai\""
+        ruu = "Mähkmed"
+        ruu_def = 4
+        playerdef2 = ruu_def + playerdef
+        aksessuaar = "Pulgakomm"
+    elif soov == "6":
+        playerclass = "Talumees"
+        playerattack = 2
+        playerdef = 1
+        playerdex = 1
+        playermana = 1
+        playerint = 1
+        playerluck = 1
+        playerspecials = "Harimisoskus"
+        munt = 0
+        relv = "Kõlbas"
+        relv_min = 1
+        relv_min = relv_min+(playerattack*2.5)
+        relv_max = 2
+        relv_max = relv_max+(playerattack*2.5)
+        relva_info = "\"Vanakoolne\""
+        ruu = "Traksid"
+        ruu_def = 4
+        playerdef2 = ruu_def + playerdef
+        aksessuaar = "Sigar"
+    elif soov == "7":
+        playerclass = "Mario"
+        playerattack = 100
+        playerdef = 100
+        playerdex = 100
+        playermana = 100
+        playerint = 1000 #aju geenius
+        playerluck = 100
+        playerspecials = "Tarkus"
+        munt = 1000
+        relv = "IT-for-Dummies"
+        relv_min = 10
+        relv_min = relv_min+(playerattack*2.5)
+        relv_max = 200
+        relv_max = relv_max+(playerattack*2.5)
+        relva_info = "\"Oppa\""
+        ruu = "Plot-armor"
+        ruu_def = 20
+        playerdef2 = ruu_def + playerdef
+        aksessuaar = "Naljaraamat"
+    elif soov == "8":
+        playerclass = "Kalevipoeg"
+        playerattack = 10
+        playerdef = 1
+        playerdex = 1
+        playermana = 1
+        playerint = 1
+        playerluck = 1
+        playerspecials = "Legend"
+        munt = 10
+        relv = "Mõõk"
+        relv_min = 1
+        relv_min = relv_min+(playerattack*2.5)
+        relv_max = 2
+        relv_max = relv_max+(playerattack*2.5)
+        relva_info = "\"Päris\""
+        ruu = "Uskumus"
+        ruu_def = 2
+        playerdef2 = ruu_def + playerdef
+        aksessuaar = "Saapad"
+    
+    elif soov == "9":
+        playerclass = "Joodik"
+        # stats
+        playerattack = 1
+        playerdef = 1
+        playerdex = 1
+        playermana = 1
+        playerint = 1
+        playerluck = 1
+        playerspecials = "Alati_purjus"
+        munt = 0 # pension
+        relv = "Lauaviin"
+        relv_min = 1
+        relv_min = relv_min+(playerattack*2.5)
+        relv_max = 2
+        relv_max = relv_max+(playerattack*2.5)
+        relva_info = "\"Ainult_õige_eestlane_suudab_seda_tõsta\""
+        ruu = "Alkohol"
+        ruu_def = 2
+        playerdef2 = ruu_def + playerdef
+        aksessuaar = "Lauaviin"
+    elif soov == "10":
+        playerclass = "Hälvik"
+        # stats
+        playerattack = 1
+        playerdef = 1
+        playerdex = 1
+        playermana = 1
+        playerint = 1
+        playerluck = 1
+        playerspecials = "Hälve"
+        munt = 1000
+        relv = "Sittajunn"
+        relv_min = 1
+        relv_min = relv_min+(playerattack*2.5)
+        relv_max = 2
+        relv_max = relv_max+(playerattack*2.5)
+        relva_info = "\"Mida_kuradit\""
+        ruu = "Higi"
+        ruu_def = 2
+        playerdef2 = ruu_def + playerdef
+        aksessuaar = "Pangakaart"
+    else:
+        print("Vale vaste")
+        sleep(2)
+        main()
     aksessuaar_info = None
     playerlevel = 1
+    playerhp = round((75*(playerlevel*1.05)),0)
+    playerhp2 = playerhp;
     if playerlevel == 1:
         xp_needed = 100
         xp_current = 0#round(randint(1,100000),0)
     if xp_current>xp_needed:
         level_up_check()
-    playerclass = "Maag"
     playerskoor = 0
     munt2 = 0
 
@@ -365,6 +611,9 @@ def loadtest():
     global relva_info
     global playerskoor
     global munt
+    global playerhp
+    global playerhp2
+    global playerchance
     lines = 1
     nimi = input("Sisesta oma eelmise characteri nimi: ")
     f = open(f"SAVE/{nimi}.txt","r", encoding="UTF-8")
@@ -659,6 +908,10 @@ def loadtest():
         
         print("")
         input("Enter")
+    playerluck3 = playerluck;
+    playerchance = round((playerluck3+(playerluck+50)),0)
+    playerhp = round((75*(playerlevel*1.05)),0)
+    playerhp2 = playerhp;
     level_up_check()
     main()
 def atrituubid():
@@ -697,19 +950,6 @@ def atrituubid():
     global playerluck
     global playerdef2
     global ruu_def
-    
-    playerchance = round(((playerluck*0.8)+50),0)
-    if playerchance >=95:
-        playerchance = 95
-
-    playerhp = 100+50*(playerlevel*0.25)
-    playerhp2 = playerhp;
-    playerattack = 1*(playerlevel*0.25)
-    playerdef = 1*(playerlevel*0.25)
-    playerdex = 1*(playerlevel*0.25)
-    playermana = 1*(playerlevel*0.25)
-    playerint = 1*(playerlevel*0.25)
-    playerluck = 1*(playerlevel*0.25)
     juhtus = ""
     juhtus1 = ""
     #Enemy
@@ -764,6 +1004,7 @@ def randomnimi():
         
     elif enemyname == "Seiklev COOP":
         if randint(1,5)==1:
+            shopreset()
             pood()
         else:
             randomnimi()
@@ -994,13 +1235,14 @@ def pood():
     global item1
     global item2
     global item3
-    price1, price2, price3 = 5, 10, 15
+    price1, price2, price3 = 15*playerlevel, 10*playerlevel, 15*playerlevel
     
     print(f"""
- 
- ALKO1000
+                             ============
+                               ALKO1000
+                             ============
  Ardo Metssalu
-"mida soovid?"
+        "Jälle sina, noh mis soovid?"
 
 
 
@@ -1009,42 +1251,65 @@ rahakott: {munt}
 [2] - {item2} | {price2}
 [3] - {item3} | {price3}
 
+[TAGASI] - Viib sind tagasi
 
 """)
     pood2 = input("Mida sa soovid osta?: ").upper()   #Mängija turn
     if pood2 == "1":
         if item1 == "ostetud":
-            pass
+            pood()
         else:
             if munt > price1:
                munt -= price1
                item1 = "ostetud"
+               #Teeb midagi
+               playerattack +=2
                pood()
+            else:
+                print("Sul pole piisavalt raha")
+                sleep(2)
+                pood()
+    
     if pood2 == "2":
         if item2 == "ostetud":
-            pass
+            pood()
         else:
             if munt > price2:
                munt -= price2
                item2 = "ostetud"
+               #Teeb midagi
+               playerdef +=2
                pood()
+            else:
+                print("Sul pole piisavalt raha")
+                sleep(2)
+                pood()
 
     if pood2 == "3":
         if item3 == "ostetud":
-            pass
+            pood()
         else:
             if munt > price3:
                munt -= price3
                item3 = "ostetud"
-               #Lisa inventory
-            
-               
+               #Teeb midagi
+               playerdex +=2
                pood()
-    
-               
+            else:
+                print("Sul pole piisavalt raha")
+                sleep(2)
+                pood()
+    if pood2 == "TAGASI":
+        main()
+    else:
+        pood()
         
-           
-        
+
+def shopreset():
+    global item1
+    global item2
+    global item3
+    item1, item2, item3 = "+2 ATK | pärast level-upi","+2 DEF | pärast level-upi","+2 DEX | pärast level-upi"      
         
 
 
