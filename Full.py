@@ -76,11 +76,11 @@ def main():
                  Laadmise test     - TEST2 (done)
                  New char test     - TEST3 (done)
                  Combat test       - TEST4 (done)
-                 Looting test      - TEST5
-          Armory and equiping test - TEST6
+                 Looting test      - TEST5 (skip)
+          Armory and equiping test - TEST6 (skip)
                  Story             - TEST7
                  Map?              - TEST8
-                 Pood ? COOP äkki  - TEST9
+                 Pood ? COOP äkki  - TEST9 (done)
           -----------------------------------------------
                 Debug mode {kas}     - DEBUG (done)
                  Player test       - PLAYER
