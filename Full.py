@@ -62,17 +62,17 @@ def main():
     global relv_max
     if turn2 > 0:
         playerdef2 = ruu_def + playerdef
-        playerchance = playerluck+50
-        playerhp = 75*(playerlevel*1.05)
+        playerchance = round((playerluck+50),0)
+        playerhp = round((75*(playerlevel*1.05)),0)
         playerhp2 = playerhp;
-        playerattack = 1*(playerlevel*1.12)
-        playerdef = 1*(playerlevel*1.12)
-        playerdex = 1*(playerlevel*1.12)
-        playermana = 1*(playerlevel*1.12)
-        playerint = 1*(playerlevel*1.12)
-        playerluck = 1*(playerlevel*1.12)
-        relv_min = (playerattack*2.0)
-        relv_max = (playerattack*2.5)
+        playerattack = round((1*(playerlevel*1.12)),0)
+        playerdef = round((1*(playerlevel*1.12)),0)
+        playerdex = round((1*(playerlevel*1.12)),0)
+        playermana = round((1*(playerlevel*1.12)),0)
+        playerint = round((1*(playerlevel*1.12)),0)
+        playerluck = round((1*(playerlevel*1.12)),0)
+        relv_min = round((playerattack*2.0),0)
+        relv_max = round((playerattack*2.5),0)
     s = None
     clear()
     print(f"""
@@ -857,7 +857,7 @@ def combat():
         combat1()
     else:
         juhtus = "Sa ei teinud sittagi :)"
-        combat()
+        combat1()
             
 def combat1():
     
