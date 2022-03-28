@@ -167,11 +167,11 @@ def main():
 
                     Pea-Arendaja: Sten Soomre
                     Kaas-Arendaja: Erik Teppan
-                    NPC: Artjom the Russian (suvakas)
-                    
+        
                     
                     Tänud kõikidele inimestele,
                     kes feedbacki antsid :)
+                    ardo, mitte keegi teine ;)
 
     """)
         sleep(5)
@@ -1069,7 +1069,7 @@ def combat(): #Player combat
         print(f"+{munt} munte")
         playerskoor += aaaah2
         xp_current += aaaah
-        level_up_check()
+        level_up_check() 
         sleep(5)
         #Loot
         main()
@@ -1312,5 +1312,40 @@ def shopreset():
     item1, item2, item3 = "+2 ATK | pärast level-upi","+2 DEF | pärast level-upi","+2 DEX | pärast level-upi"      
         
 
+def tsoon(): #Tsoonide seadistus
+    
+    global playerskoor
+    tsoon1
+    tsoon2
+    tsoon3
+    tsoon4
+    tsoon5
+    tsoon6
+    tsoon7
 
+    if playerskoor >= 1000000000000: #1000000000000  punkti tsoon seitse jaoks (väike hüpe) + boss
+        print("Liigud Tsoon 7")   
+
+    if playerskoor >= 100000000000: #100000000000  punkti tsoon kuus jaoks (väike hüpe)
+        print("Liigud Tsoon 6")
+
+    if playerskoor >= 10000000000:   #Soomre tahtis 7 tsooni mis läheb mitme million punktini
+        print("Liigud Tsoon 5")
+
+    if playerskoor >= 1000000000: #1000000000  punkti tsoon neli jaoks (väike hüpe)
+        print("Liigud Tsoon 4")
+    
+    if playerskoor >= 100000000: #100000000  punkti tsoon kahe jaoks (väike hüpe)
+        print("Liigud Tsoon 3")
+    
+    elif playerskoor >= 1000000: #1000000  punkti tsoon kahe jaoks (väike hüpe)
+        print("Liigud Tsoon 2")
+    
+    elif playerskoor >= 10000: #10,000 punkti tsoon ühe jaoks
+        print("Liigud Tsoon 1")
+                
+
+            
+    
+        
 start()
