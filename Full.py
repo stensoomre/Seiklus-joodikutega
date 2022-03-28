@@ -177,7 +177,7 @@ def main():
         sleep(5)
         main()
     else:
-        print(f"Vigane Käsk {s}")
+        print(f"Vigane Käsk {s}") # vigane käsk, lugeda ei oska vä
         sleep(1)
         main()
 
@@ -240,7 +240,7 @@ def level_up_check():
             print(f"Level up! \nLeveled to {playerlevel}!!")
             xp_needed = round(xp_needed+(playerlevel*100.275),0)
             level_up_check()
-def savetest():
+def savetest(): #salvestamis seadistus
     global nimi
     global playerattack
     global playerdef
@@ -297,7 +297,7 @@ def savetest():
     main()
     
     
-def newchar():
+def newchar(): #Uue char seadistus
     
     global nimi
     global playerattack
@@ -586,7 +586,7 @@ def newchar():
     sleep(4)
     main()
     
-def loadtest():
+def loadtest(): #Laadimise seadistus
     
     global nimi
     global playerattack
@@ -1014,7 +1014,7 @@ def randomnimi():
     balls = 5*enemyattack 
     combat()
     
-def combat():
+def combat(): #Player combat
     
     global nimi
     global playerattack#Player
@@ -1138,7 +1138,7 @@ def combat():
         juhtus = "Sa ei teinud sittagi :)"
         combat1()
             
-def combat1():
+def combat1(): # Enemy seadistus
     
     global nimi
     global playerattack#Player
@@ -1207,7 +1207,7 @@ def combat1():
 
     combat()
         
-def pood():
+def pood(): #Alko seadistus
     
     clear()
     global nimi
