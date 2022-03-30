@@ -4,7 +4,8 @@ import os
 import re
 def clear():
     os.system("cls")
-def clearacc():
+def clearacc(): #Uus tegelane
+    
     global nimi
     global playerattack
     global playerdef
@@ -33,6 +34,7 @@ def clearacc():
     pass
     
 def start():
+    
     global debug
     global kas
     global turn2
@@ -44,9 +46,11 @@ def start():
     munt = 0
     kas = "[0]"
     main()
+    
 # Sätti see '1', et muuta allolevaid muutujaid kergesti :)
 
-def main():
+def main(): #Menu screen
+    
     global kas
     global debug
     global turn2
@@ -78,8 +82,8 @@ def main():
                  Combat test       - TEST4 (done)
                  Looting test      - TEST5 (skip)
           Armory and equiping test - TEST6 (skip)
-                 Story             - TEST7
-                 Map?              - TEST8
+                 Story             - TEST7 (done)
+                 Map?              - TEST8 
                  Pood ? COOP äkki  - TEST9 (done)
           -----------------------------------------------
                 Debug mode {kas}     - DEBUG (done)
@@ -117,7 +121,7 @@ def main():
         main()
     if s == "TEST7":
         os.system("cls")
-        print("Veel pole midagi siin ):")
+        story()
         sleep(5)
         main()
     if s == "TEST8":
@@ -182,6 +186,7 @@ def main():
         main()
 
 def level_up_check():
+    
     global nimi
     global playerattack
     global playerdef
@@ -241,6 +246,7 @@ def level_up_check():
             xp_needed = round(xp_needed+(playerlevel*100.275),0)
             level_up_check()
 def savetest(): #salvestamis seadistus
+    
     global nimi
     global playerattack
     global playerdef
@@ -269,7 +275,6 @@ def savetest(): #salvestamis seadistus
     global playerclass
     global playerskoor
     global munt
-
     f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
     f.write(f"Nimi: {nimi}\n")
     f.write(f"Level: {playerlevel} ({xp_current}XP/{xp_needed}XP)\n")
@@ -297,7 +302,7 @@ def savetest(): #salvestamis seadistus
     main()
     
     
-def newchar(): #Uue char seadistus
+def newchar(): #Uue char seadistus / Valimine
     
     global nimi
     global playerattack
@@ -462,7 +467,7 @@ def newchar(): #Uue char seadistus
         playerdef2 = ruu_def + playerdef
         aksessuaar = "Sigar"
     elif soov == "7":
-        playerclass = "Mario"
+        playerclass = "Mario" #Supreme race
         playerattack = 100
         playerdef = 100
         playerdex = 100
@@ -915,6 +920,7 @@ def loadtest(): #Laadimise seadistus
     level_up_check()
     main()
 def atrituubid():
+    
     global playerdmg
     global playerchance
     global playerlevel
@@ -975,6 +981,7 @@ def muldsilma ():
     pass
     #Vastaste kalibreerimine
 def randomnimi():
+    
     global nimevalik
     global enemyattack
     global enemydex
@@ -982,7 +989,7 @@ def randomnimi():
     global enemyname
     global headshot
     global leg
-    global balls
+    global balls   
     nimevalik = ["Paganlane", "Rammus Paganlane", "Tempokas Paganlane","Joobes Paganlane","Seiklev COOP"]
     enemyname = nimevalik[randint(0,len(nimevalik)-1)]
     print(enemyname)
@@ -1014,7 +1021,7 @@ def randomnimi():
     balls = 5*enemyattack 
     combat()
     
-def combat(): #Player combat
+def combat(): #Player combat   
     
     global nimi
     global playerattack#Player
@@ -1069,7 +1076,8 @@ def combat(): #Player combat
         print(f"+{munt} munte")
         playerskoor += aaaah2
         xp_current += aaaah
-        level_up_check() 
+        level_up_check()
+        tsoon()
         sleep(5)
         #Loot
         main()
@@ -1207,7 +1215,7 @@ def combat1(): # Enemy seadistus
 
     combat()
         
-def pood(): #Alko seadistus
+def pood(): #Alko (Pood) seadistus
     
     clear()
     global nimi
@@ -1304,48 +1312,57 @@ rahakott: {munt}
     else:
         pood()
         
-
 def shopreset():
+    
     global item1
     global item2
     global item3
     item1, item2, item3 = "+2 ATK | pärast level-upi","+2 DEF | pärast level-upi","+2 DEX | pärast level-upi"      
         
-
-def tsoon(): #Tsoonide seadistus
-    
+def tsoon(): #Tsoonide seadistus    
     global playerskoor
-    tsoon1
-    tsoon2
-    tsoon3
-    tsoon4
-    tsoon5
-    tsoon6
-    tsoon7
-
-    if playerskoor >= 1000000000000: #1000000000000  punkti tsoon seitse jaoks (väike hüpe) + boss
+    
+    if playerskoor >= 1000000000: #1000000000 punkti tsoon seitsme jaoks (väike hüpe) + boss
         print("Liigud Tsoon 7")   
 
-    if playerskoor >= 100000000000: #100000000000  punkti tsoon kuus jaoks (väike hüpe)
+    if playerskoor >= 1000000: #1000000 punkti tsoon kuue jaoks (väike hüpe)
         print("Liigud Tsoon 6")
 
-    if playerskoor >= 10000000000:   #Soomre tahtis 7 tsooni mis läheb mitme million punktini
+    if playerskoor >= 500000:   #Soomre tahtis 7 tsooni mis läheb mitme million punktini
         print("Liigud Tsoon 5")
 
-    if playerskoor >= 1000000000: #1000000000  punkti tsoon neli jaoks (väike hüpe)
+    if playerskoor >= 300000: #300000 punkti tsoon nelja jaoks (väike hüpe)
         print("Liigud Tsoon 4")
     
-    if playerskoor >= 100000000: #100000000  punkti tsoon kahe jaoks (väike hüpe)
+    if playerskoor >= 200000: #200000 punkti tsoon kahe jaoks (väike hüpe)
         print("Liigud Tsoon 3")
     
-    elif playerskoor >= 1000000: #1000000  punkti tsoon kahe jaoks (väike hüpe)
+    elif playerskoor >= 10000: #10000 punkti tsoon kahe jaoks (väike hüpe)
         print("Liigud Tsoon 2")
     
-    elif playerskoor >= 10000: #10,000 punkti tsoon ühe jaoks
+    elif playerskoor >= 1000: #1000 punkti tsoon ühe jaoks
         print("Liigud Tsoon 1")
                 
-
-            
+def story():
     
-        
+    print(f"""
+                    Umbakutsel Eesti eepos nimega “Kalevipoeg”
+                    ──────────────────────────────────────────
+                                                     
+         Sa oled hiljuti saanud üksikuseks meheks, kes rändab mööda Eesti ja aitab inimesi,
+         aga nüüd pöördub sinu vastu Vanapagan ise ja tema käsilased,
+         kes ründavad külasid varastavad kulda ja naiste punaseid stringe.
+         Sinu ülesanne on haarata oma piip ja prillid ja omal valikul relv ja astuda teele,
+         kus sa päästad naisi ja tapad patuseid paganeid, et saad Eesti vingemaks meheks ja istuda mängu lõpus
+         kivist trooni peale mida ümbritsevad naised ja nautida lihtsat elu.
+         
+         Kõike paremat kangelane ja edukat rännakut,
+         
+         ELAGU ISAMAA!!!
+
+""")
+    
+
+
+
 start()
