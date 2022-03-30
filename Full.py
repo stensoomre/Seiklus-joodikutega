@@ -69,103 +69,32 @@ def main(): #Menu screen
     global relv_max
     s = None
     clear()
-    print(f"""
-                    =====================
-                    Seiklused Joodikutega
-                        (Kalevipoeg)
-                         Rougelike
-                    =====================
-          -----------------------------------------------                    
-                    Salvestamine   - TEST1 (done)
-                 Laadmise test     - TEST2 (done)
-                 New char test     - TEST3 (done)
-                 Combat test       - TEST4 (done)
-                 Looting test      - TEST5 (skip)
-          Armory and equiping test - TEST6 (skip)
-                 Story             - TEST7 (done)
-                 Map?              - TEST8 
-                 Pood ? COOP äkki  - TEST9 (done)
-          -----------------------------------------------
-                Debug mode {kas}     - DEBUG (done)
-                 Player test       - PLAYER
-                 Tunnustused       - CREDITS (done)
-          -----------------------------------------------
-          Versioon: WIP
-                 
-""")
-    s = input().upper()
-    if s == "TEST1":
-        turn2 += 1
+    vaste = input(str("""
+                        ======================
+                             "Kalevipoeg"
+                        ======================
+              Aga mis siis kui üks joodik ütles teisele, et ei
+              -----------------------------------------------
+              
+                     Mängi             - ALUSTA
+                     Jätka progressi   - LAE
+                     
+              -----------------------------------------------
+              
+                     Tunnustused       - TUBLID
+                     
+              -----------------------------------------------
+              Versioon: 0.1.0
+          
+""")).upper()
+    if vaste == "ALUSTA":
         clear()
-        savetest()
-    if s == "TEST2":
+        alustamine()
+       #Ma ausalt ei mäleta järjekorda aga noh siit see läheb ):
+    elif vaste == "LAE":
         clear()
-        turn2 += 1
         loadtest()
-    if s == "TEST3":
-        os.system("cls")
-        turn2 += 1
-        newchar()
-    if s == "TEST4":
-        os.system("cls")
-        atrituubid()
-    if s == "TEST5":
-        os.system("cls")
-        print("Veel pole midagi siin ):")
-        sleep(5)
-        main()
-    if s == "TEST6":
-        os.system("cls")
-        print("Veel pole midagi siin ):")
-        sleep(5)
-        main()
-    if s == "TEST7":
-        os.system("cls")
-        story()
-        sleep(5)
-        main()
-    if s == "TEST8":
-        os.system("cls")
-        print("Veel pole midagi siin ):")
-        sleep(5)
-        main()
-    if s == "TEST9":
-        os.system("cls")
-        shopreset()
-        pood()
-    if s == "DEBUG":
-        os.system("cls")
-        if debug == 0:
-            debug = 1
-            kas = "[1]"
-        elif debug == 1:
-            debug = 0
-            kas = "[0]"
-        main()
-    if s == "PLAYER":
-        print(f"Nimi: {nimi}")
-        print(f"Level: {playerlevel} ({xp_current}XP/{xp_needed}XP)")
-        print("---------------------")
-        print(f"ATK: {playerattack} ({relv_min}-{relv_max})DMG")
-        print(f"DEF: {playerdef} ({playerdef2})")
-        print(f"DEX: {playerdex}")
-        print(f"MANA: {playermana}")
-        print(f"INT: {playerint}")
-        print(f"LUCK: {playerluck}")
-        print(f"SPECIALS: {playerspecials}")
-        print("---------------------")
-        print(f"RELV: {relv} {relva_info}")
-        print(f"Ruu: {ruu} +({ruu_def} DEF)")
-        print(f"AKSESSUAAR: {aksessuaar} {aksessuaar_info}")
-        print("---------------------")
-        print(f"Klass: {playerclass}")
-        print(f"Skoor: {playerskoor}")
-        print(f"munt: {munt}")
-        print("")
-        input("Enter")
-        main()
-        
-    if s == "CREDITS":
+    elif vaste == "TUBLID":
         clear()
         print(f"""
 
@@ -173,18 +102,15 @@ def main(): #Menu screen
                     Kaas-Arendaja: Erik Teppan
         
                     
-                    Tänud kõikidele inimestele,
-                    kes feedbacki antsid :)
-                    ardo, mitte keegi teine ;)
-
+                    Tublid olid: Ardo, mitte keegi teine ;)
+                                (isegi)
+                        (aitäh, et poodi tulid)
     """)
-        sleep(5)
+        input("Enter")
         main()
-    else:
-        print(f"Vigane Käsk {s}") # vigane käsk, lugeda ei oska vä
-        sleep(1)
+    elif vaste != "Neeger":
+        print("Vale vaste")
         main()
-
 def level_up_check():
     
     global nimi
@@ -197,7 +123,7 @@ def level_up_check():
     global playerspecials
     global playerlevel # Mariole muidugi meeldib ;)
     global relv
-    global relv_min
+    global relv_min # Plus mine kergelt öeldud perse - Ardo
     global relv_max
     global ruu
     global ruu_def
@@ -275,7 +201,7 @@ def savetest(): #salvestamis seadistus
     global playerclass
     global playerskoor
     global munt
-    f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
+    f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8") 
     f.write(f"Nimi: {nimi}\n")
     f.write(f"Level: {playerlevel} ({xp_current}XP/{xp_needed}XP)\n")
     f.write("---------------------\n")
@@ -299,7 +225,8 @@ def savetest(): #salvestamis seadistus
     print("")
     print(f"Salvestatud {nimi}.txt'ina")
     sleep(4)
-    main()
+    alustamine2()
+
     
     
 def newchar(): #Uue char seadistus / Valimine
@@ -414,7 +341,7 @@ def newchar(): #Uue char seadistus / Valimine
         playermana = 4
         playerint = 4
         playerluck = 0
-        playerspecials = "Maagia"
+        playerspecials = "Kasutu"
         munt = 0
         relv = "Luud"
         relv_min = 1
@@ -552,7 +479,6 @@ def newchar(): #Uue char seadistus / Valimine
     else:
         print("Vale vaste")
         sleep(2)
-        main()
     aksessuaar_info = None
     playerlevel = 1
     playerhp = round((75*(playerlevel*1.05)),0)
@@ -564,33 +490,62 @@ def newchar(): #Uue char seadistus / Valimine
         level_up_check()
     playerskoor = 0
     munt2 = 0
-
-    f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
-    f.write(f"Nimi: {nimi}\n")
-    f.write(f"Level: {playerlevel} ({xp_current}XP/{xp_needed}XP)\n")
-    f.write("---------------------\n")
-    f.write(f"ATK: {playerattack} ({relv_min}-{relv_max})DMG\n")
-    f.write(f"DEF: {playerdef} ({playerdef2})\n")
-    f.write(f"DEX: {playerdex}\n")
-    f.write(f"MANA: {playermana}\n")
-    f.write(f"INT: {playerint}\n")
-    f.write(f"LUCK: {playerluck}\n")
-    f.write(f"SPECIALS: {playerspecials}\n")
-    f.write("---------------------\n")
-    f.write(f"RELV: {relv} {relva_info}\n")
-    f.write(f"Ruu: {ruu} +({ruu_def} DEF)\n")
-    f.write(f"AKSESSUAAR: {aksessuaar} {aksessuaar_info}\n")
-    f.write("---------------------\n")
-    f.write(f"Klass: {playerclass}\n")
-    f.write(f"Skoor: {playerskoor}\n")
-    f.write(f"munt: {munt}\n")
-    f.close()
-    sleep(1)
-    print("")
-    print(f"Salvestatud {nimi}.txt'ina")
-    sleep(4)
-    main()
-    
+    try:
+        f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
+        f.write(f"Nimi: {nimi}\n")
+        f.write(f"Level: {playerlevel} ({xp_current}XP/{xp_needed}XP)\n")
+        f.write("---------------------\n")
+        f.write(f"ATK: {playerattack} ({relv_min}-{relv_max})DMG\n")
+        f.write(f"DEF: {playerdef} ({playerdef2})\n")
+        f.write(f"DEX: {playerdex}\n")
+        f.write(f"MANA: {playermana}\n")
+        f.write(f"INT: {playerint}\n")
+        f.write(f"LUCK: {playerluck}\n")
+        f.write(f"SPECIALS: {playerspecials}\n")
+        f.write("---------------------\n")
+        f.write(f"RELV: {relv} {relva_info}\n")
+        f.write(f"Ruu: {ruu} +({ruu_def} DEF)\n")
+        f.write(f"AKSESSUAAR: {aksessuaar} {aksessuaar_info}\n")
+        f.write("---------------------\n")
+        f.write(f"Klass: {playerclass}\n")
+        f.write(f"Skoor: {playerskoor}\n")
+        f.write(f"munt: {munt}\n")
+        f.close()
+        sleep(1)
+        print("")
+        print(f"Salvestatud {nimi}.txt'ina")
+        sleep(4)
+        alustamine2()
+    except:
+        try:
+            os.mkdir("SAVE")
+            f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
+            f.write(f"Nimi: {nimi}\n")
+            f.write(f"Level: {playerlevel} ({xp_current}XP/{xp_needed}XP)\n")
+            f.write("---------------------\n")
+            f.write(f"ATK: {playerattack} ({relv_min}-{relv_max})DMG\n")
+            f.write(f"DEF: {playerdef} ({playerdef2})\n")
+            f.write(f"DEX: {playerdex}\n")
+            f.write(f"MANA: {playermana}\n")
+            f.write(f"INT: {playerint}\n")
+            f.write(f"LUCK: {playerluck}\n")
+            f.write(f"SPECIALS: {playerspecials}\n")
+            f.write("---------------------\n")
+            f.write(f"RELV: {relv} {relva_info}\n")
+            f.write(f"Ruu: {ruu} +({ruu_def} DEF)\n")
+            f.write(f"AKSESSUAAR: {aksessuaar} {aksessuaar_info}\n")
+            f.write("---------------------\n")
+            f.write(f"Klass: {playerclass}\n")
+            f.write(f"Skoor: {playerskoor}\n")
+            f.write(f"munt: {munt}\n")
+            f.close()
+            sleep(1)
+            print("")
+            print(f"Salvestatud {nimi}.txt'ina")
+            sleep(4)
+            alustamine2()
+        except:
+            pass
 def loadtest(): #Laadimise seadistus
     
     global nimi
@@ -918,9 +873,8 @@ def loadtest(): #Laadimise seadistus
     playerhp = round((75*(playerlevel*1.05)),0)
     playerhp2 = playerhp;
     level_up_check()
-    main()
+    alustamine2()
 def atrituubid():
-    
     global playerdmg
     global playerchance
     global playerlevel
@@ -952,6 +906,7 @@ def atrituubid():
     global playerdef
     global playerdex
     global playermana
+    global playerskoor
     global playerint
     global playerluck
     global playerdef2
@@ -973,13 +928,36 @@ def atrituubid():
         enemychance = 95
     #attackid
 #1/10000000
-    randomnimi()
+    if playerskoor >= 200000:
+        randomnimi2()
+    else:
+        randomnimi()
 
 def muldsilma ():
     relv_min = relv_min*0.9
     relv_max = relv_max*0.9
     pass
     #Vastaste kalibreerimine
+def randomnimi2(): #boss stats
+    
+    global nimevalik
+    global enemyattack
+    global enemydex
+    global enemyluck
+    global enemyname
+    global headshot
+    global leg
+    global balls   
+    nimevalik = ["Vanapagan"]
+    enemyname = nimevalik[randint(0,len(nimevalik)-1)]
+    if enemyname == "Vanapagan":
+        enemyattack *= 2
+        enemydex *= 1
+        #enemydmg = randint(enemyattack*0.8,enemyattack*1.2)
+    headshot = 2.5*enemyattack
+    leg = 1.75*enemyattack
+    balls = 10*enemyattack 
+    combat()
 def randomnimi():
     
     global nimevalik
@@ -992,11 +970,8 @@ def randomnimi():
     global balls   
     nimevalik = ["Paganlane", "Rammus Paganlane", "Tempokas Paganlane","Joobes Paganlane","Seiklev COOP"]
     enemyname = nimevalik[randint(0,len(nimevalik)-1)]
-    print(enemyname)
-    if enemyname == "Paganlane":
-        pass
 
-    elif enemyname == "Rammus Paganlane":
+    if enemyname == "Rammus Paganlane":
         enemyattack += 2
         enemydex -= 1
    
@@ -1067,20 +1042,23 @@ def combat(): #Player combat
         clearacc()
         main()
     elif enemyhp <= 0:
-        aaaah = randint(1,100)*playerlevel
-        aaaah2 = randint(1,10)*enemylevel
-        munt += round((randint(1,20)+(0.8*enemylevel)),0)
-        print("Sa võitsid")
-        print(f"+{aaaah} XP")
-        print(f"+{aaaah2} skoor")
-        print(f"+{munt} munte")
-        playerskoor += aaaah2
-        xp_current += aaaah
-        level_up_check()
-        tsoon()
-        sleep(5)
-        #Loot
-        main()
+        if enemyname == "Vanapagan":
+            clear()
+            print("Sa võitsid!!!")
+            main()
+        else:
+            aaaah = randint(1,100)*playerlevel
+            aaaah2 = randint(1,10)*enemylevel
+            munt += round((randint(1,20)+(0.8*enemylevel)),0)
+            print("Sa võitsid")
+            print(f"+{aaaah} XP")
+            print(f"+{aaaah2} skoor")
+            print(f"+{munt} munte")
+            playerskoor += aaaah2
+            xp_current += aaaah
+            level_up_check()
+            sleep(5)
+            alustamine2()
             #UI
     print(f"""
 
@@ -1308,7 +1286,7 @@ rahakott: {munt}
                 sleep(2)
                 pood()
     if pood2 == "TAGASI":
-        main()
+        alustamine2()
     else:
         pood()
         
@@ -1322,29 +1300,20 @@ def shopreset():
 def tsoon(): #Tsoonide seadistus    
     global playerskoor
     
-    if playerskoor >= 1000000000: #1000000000 punkti tsoon seitsme jaoks (väike hüpe) + boss
-        print("Liigud Tsoon 7")   
-
-    if playerskoor >= 1000000: #1000000 punkti tsoon kuue jaoks (väike hüpe)
-        print("Liigud Tsoon 6")
-
-    if playerskoor >= 500000:   #Soomre tahtis 7 tsooni mis läheb mitme million punktini
-        print("Liigud Tsoon 5")
-
-    if playerskoor >= 300000: #300000 punkti tsoon nelja jaoks (väike hüpe)
-        print("Liigud Tsoon 4")
-    
-    if playerskoor >= 200000: #200000 punkti tsoon kahe jaoks (väike hüpe)
-        print("Liigud Tsoon 3")
+    if playerskoor >= 200000: #200000 punkti tsoon kolme jaoks (väike hüpe) + boss fight
+        print("Liigud surma")
     
     elif playerskoor >= 10000: #10000 punkti tsoon kahe jaoks (väike hüpe)
-        print("Liigud Tsoon 2")
+        print("Liigud kaugemale")
     
-    elif playerskoor >= 1000: #1000 punkti tsoon ühe jaoks
-        print("Liigud Tsoon 1")
+    else: #1000 punkti tsoon ühe jaoks
+        print("Liigud edasi")
+    sleep(3)
+    clear()
+    atrituubid()
                 
 def story():
-    
+    clear()
     print("""
                     Umbkautselt Eesti eepos nimega “Kalevipoeg”
                     ──────────────────────────────────────────
@@ -1352,6 +1321,7 @@ def story():
          Sa oled hiljuti saanud üksikuseks meheks, kes rändab mööda Eesti ja aitab inimesi,
          aga nüüd pöördub sinu vastu Vanapagan ise ja tema käsilased,
          kes ründavad külasid varastavad kulda ja naiste punaseid stringe.
+         
          Sinu ülesanne on haarata oma piip ja prillid ja omal valikul relv ja astuda teele,
          kus sa päästad naisi ja tapad patuseid paganaid, et saad Eesti vingemaks meheks ja istuda mängu lõpus
          kivist trooni peale (mis on külm) mida ümbritsevad naised ja nautida lihtsat elu.
@@ -1361,9 +1331,99 @@ def story():
          ELAGU ISAMAA!!!
 
 """)
-    sleep(20)
+    input("Enter")
+    clear()
+
+def alustamine():
+    story()
+    newchar()
     
+def alustamine2():
+    global nimi
+    clear()
+    lmao = input(f"""
+
+        Sina, {nimi} oled Kalevimaal.
 
 
+        Mida sa teed?
+
+
+        [1] - Liigu sügavamale
+        [2] - Kaugel olen?
+        [3] - Kus on vanapagan?
+        [4] - Näita mängija attritüüpe
+        
+        [5] - Salvesta progress
+
+
+""")
+    if lmao == "1":
+        clear()
+        tsoon()
+    if lmao == "2":
+        clear()
+        print("Eks kuskil ikka oled")
+        sleep(2)
+        alustamine2()
+    if lmao == "3":
+        clear()
+        print("Kuskil ikka")
+        sleep(2)
+        alustamine2()
+    if lmao == "4":
+        clear()
+        playerstats()
+    if lmao == "5":
+        clear()
+        savetest()
+        
+def playerstats():
+        global nimi
+        global playerattack
+        global playerdef
+        global playerdef2
+        global playerdex
+        global playermana
+        global playerint
+        global playerluck
+        global playerspecials
+        global playerlevel # Mariole muidugi meeldib ;)
+        global relv
+        global relv_min
+        global relv_max
+        global ruu
+        global ruu_def
+        global relva_info
+        global aksessuaar
+        global aksessuaar_info
+        global xp_current
+        global xp_needed
+        global playerclass
+        global playerskoor
+        global munt
+        global playerhp
+        global playerhp
+        print(f"Nimi: {nimi}")
+        print(f"Level: {playerlevel} ({xp_current}XP/{xp_needed}XP)")
+        print("---------------------")
+        print(f"ATK: {playerattack} ({relv_min}-{relv_max})DMG")
+        print(f"DEF: {playerdef} ({playerdef2})")
+        print(f"DEX: {playerdex}")
+        print(f"MANA: {playermana}")
+        print(f"INT: {playerint}")
+        print(f"LUCK: {playerluck}")
+        print(f"SPECIALS: {playerspecials}")
+        print("---------------------")
+        print(f"RELV: {relv} {relva_info}")
+        print(f"Ruu: {ruu} +({ruu_def} DEF)")
+        print(f"AKSESSUAAR: {aksessuaar} {aksessuaar_info}")
+        print("---------------------")
+        print(f"Klass: {playerclass}")
+        print(f"Skoor: {playerskoor}")
+        print(f"munt: {munt}")
+        print("")
+        input("Enter")
+        alustamine2()
 
 start()
