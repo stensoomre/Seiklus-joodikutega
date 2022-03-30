@@ -1345,22 +1345,23 @@ def tsoon(): #Tsoonide seadistus
                 
 def story():
     
-    print(f"""
-                    Umbakutsel Eesti eepos nimega “Kalevipoeg”
+    print("""
+                    Umbkautselt Eesti eepos nimega “Kalevipoeg”
                     ──────────────────────────────────────────
                                                      
          Sa oled hiljuti saanud üksikuseks meheks, kes rändab mööda Eesti ja aitab inimesi,
          aga nüüd pöördub sinu vastu Vanapagan ise ja tema käsilased,
          kes ründavad külasid varastavad kulda ja naiste punaseid stringe.
          Sinu ülesanne on haarata oma piip ja prillid ja omal valikul relv ja astuda teele,
-         kus sa päästad naisi ja tapad patuseid paganeid, et saad Eesti vingemaks meheks ja istuda mängu lõpus
-         kivist trooni peale mida ümbritsevad naised ja nautida lihtsat elu.
+         kus sa päästad naisi ja tapad patuseid paganaid, et saad Eesti vingemaks meheks ja istuda mängu lõpus
+         kivist trooni peale (mis on külm) mida ümbritsevad naised ja nautida lihtsat elu.
          
-         Kõike paremat kangelane ja edukat rännakut,
+         Kõike paremat, kangelane ja edukat rännakut,
          
          ELAGU ISAMAA!!!
 
 """)
+    sleep(20)
     
 
 
