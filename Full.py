@@ -74,16 +74,16 @@ def main(): #Menu screen
                              "Kalevipoeg"
                         ======================
               Aga mis siis kui üks joodik ütles teisele, et ei
-              -----------------------------------------------
+              ─────────────────────────────────────────────────
               
                      Mängi             - ALUSTA
                      Jätka progressi   - LAE
                      
-              -----------------------------------------------
+              ─────────────────────────────────────────────────
               
                      Tunnustused       - TUBLID
                      
-              -----------------------------------------------
+              ─────────────────────────────────────────────────
               Versioon: 0.1.0
           
 """)).upper()
@@ -267,7 +267,7 @@ def newchar(): #Uue char seadistus / Valimine
  [4] - Nõid
  [5] - Laps
  [6] - Talumees
- [7] - Mario (jumal)
+ [7] - Mario (Võib tekitada paradoxi?) 
  [8] - Kalevipoeg
  [9] - Joodik 
  [10] - Mentaalse hälvega
@@ -938,7 +938,7 @@ def muldsilma ():
     relv_max = relv_max*0.9
     pass
     #Vastaste kalibreerimine
-def randomnimi2(): #boss stats
+def randomnimi2(): #Boss seadistus
     
     global nimevalik
     global enemyattack
@@ -958,7 +958,7 @@ def randomnimi2(): #boss stats
     leg = 1.75*enemyattack
     balls = 10*enemyattack 
     combat()
-def randomnimi():
+def randomnimi(): #Käsilased
     
     global nimevalik
     global enemyattack
@@ -1042,10 +1042,23 @@ def combat(): #Player combat
         clearacc()
         main()
     elif enemyhp <= 0:
-        if enemyname == "Vanapagan":
-            clear()
-            print("Sa võitsid!!!")
+        if enemyname == "Vanapagan": 
+            clear()                   #FIN
+            input("""
+            Sa said hakkama, üle aegade pole keegi saanud hakkama saanud Vanapagana tappmisega,
+            sa oled inspiratsioon meile kõigile ja meie kangelane, äitäh et läbisid selle raske teekonna. 
+            
+            Aaaja ma ei tutvustanud ennast ega ju?
+            Tere, minu nimi on Mario Metshein meeldiv tutvuda!
+            Kõike paremat ja puhka kui puhke aeg on :)
+            
+            
+            
+            Enter
+            """)
+            clearacc()
             main()
+    
         else:
             aaaah = randint(1,100)*playerlevel
             aaaah2 = randint(1,10)*enemylevel
@@ -1312,7 +1325,7 @@ def tsoon(): #Tsoonide seadistus
     clear()
     atrituubid()
                 
-def story():
+def story(): #Story
     clear()
     print("""
                     Umbkautselt Eesti eepos nimega “Kalevipoeg”
@@ -1338,7 +1351,7 @@ def alustamine():
     story()
     newchar()
     
-def alustamine2():
+def alustamine2(): #Story UI
     global nimi
     clear()
     lmao = input(f"""
@@ -1351,7 +1364,7 @@ def alustamine2():
 
         [1] - Liigu sügavamale
         [2] - Kaugel olen?
-        [3] - Kus on vanapagan?
+        [3] - Kus on Vanapagan?
         [4] - Näita mängija attritüüpe
         
         [5] - Salvesta progress
@@ -1363,12 +1376,12 @@ def alustamine2():
         tsoon()
     if lmao == "2":
         clear()
-        print("Eks kuskil ikka oled")
+        print("Tundmatu tegelane - Võib öelda, et su teekond veel pikk.") #NPC
         sleep(2)
         alustamine2()
     if lmao == "3":
         clear()
-        print("Kuskil ikka")
+        print("Tundmatu tegelane - Kuskil on, ei oska täpselt öelda, aga kui sa piisavalt tugevaks saad, ilmub ta ise.") #NPC
         sleep(2)
         alustamine2()
     if lmao == "4":
