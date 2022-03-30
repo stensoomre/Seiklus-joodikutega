@@ -1037,23 +1037,36 @@ def combat(): #Player combat
             turn +=1
             combat1()
     if playerhp <= 0:
-        print("Sa surid")
-        sleep(5)
+        input("""
+
+        Sa surid,
+        sa valmistusid meile pettumust, kuidas sa hakkama ei saanud,
+        me kõik uskusime sinusse, mis sinu punastest stringidest saab?
+        
+        Kas sa tõesti ei mõista, miks return on parem, kui global?
+        Loodan, et Põrgus pole ühtegi ALKO1000 (TEHNILISELT POOD)
+        
+        Isegi su vend on sinust parem,        
+        Mine proovi uuesti SA VÄIKE ALAARENENUD SEINAPÕRKEGA NÄPITUD SITANÄKERDIS!!!!!
+
+        PS: proovi uuesti :)
+        
+        Enter
+""")
         clearacc()
         main()
     elif enemyhp <= 0:
         if enemyname == "Vanapagan": 
             clear()                   #FIN
             input("""
-            Sa said hakkama, üle aegade pole keegi saanud hakkama saanud Vanapagana tappmisega,
+            Sa said hakkama, üleaegade pole keegi saanud hakkama, Vanapagana tappmisega,
             sa oled inspiratsioon meile kõigile ja meie kangelane, äitäh et läbisid selle raske teekonna. 
             
-            Aaaja ma ei tutvustanud ennast ega ju?
+            Aaaja ma ei tutvustanud ennast, ega ju?
             Tere, minu nimi on Mario Metshein meeldiv tutvuda!
-            Kõike paremat ja puhka kui puhke aeg on :)
+            Kõike paremat ja puhka, kui puhke aeg on :)
             
-            
-            
+                        
             Enter
             """)
             clearacc()
@@ -1070,7 +1083,7 @@ def combat(): #Player combat
             playerskoor += aaaah2
             xp_current += aaaah
             level_up_check()
-            sleep(5)
+            sleep(2)
             alustamine2()
             #UI
     print(f"""
