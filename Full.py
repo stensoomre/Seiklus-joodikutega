@@ -143,6 +143,8 @@ def level_up_check():
     global playermana3
     global playerint3
     global playerluck3
+    global playerhp
+    global playerhp2
     if xp_current>xp_needed: # Kui xp on suurem kui xp max
             xp_current -= xp_needed # võta maha
             playerlevel += 1 # level up :)
@@ -160,12 +162,12 @@ def level_up_check():
                 playerchance = 95
             playerhp = round((75*(playerlevel*1.05)),0)
             playerhp2 = playerhp;
-            playerattack = round((playerattack3*(playerlevel*1.12)),0)
-            playerdef = round((playerdef3*(playerlevel*1.12)),0)
-            playerdex = round((playerdex3*(playerlevel*1.12)),0)
-            playermana = round((playermana3*(playerlevel*1.12)),0)
-            playerint = round((playerint3*(playerlevel*1.12)),0)
-            playerluck = round((playerluck3*(playerlevel*1.12)),0)
+            playerattack += 1
+            playerdef += 1
+            playerdex += 1
+            playermana += 1
+            playerint += 1
+            playerluck += 1
             relv_min = round((playerattack*2.0),0)
             relv_max = round((playerattack*2.5),0)
             print(f"Level up! \nLeveled to {playerlevel}!!")
@@ -255,7 +257,7 @@ def newchar(): #Uue char seadistus / Valimine
     global playerskoor
     global munt
     global playerhp
-    global playerhp
+    global playerhp2
     
     nimi = input("Siseta nimi: ")
     soov = input("""
@@ -514,8 +516,11 @@ def newchar(): #Uue char seadistus / Valimine
         sleep(1)
         print("")
         print(f"Salvestatud {nimi}.txt'ina")
+        clear()
         sleep(4)
-        alustamine2()
+        print("Nüüd lae oma tegelane sisse :)")
+        sleep(4)
+        main()
     except:
         try:
             os.mkdir("SAVE")
@@ -543,7 +548,10 @@ def newchar(): #Uue char seadistus / Valimine
             print("")
             print(f"Salvestatud {nimi}.txt'ina")
             sleep(4)
-            alustamine2()
+            clear()
+            print("Nüüd lae oma tegelane sisse :)")
+            sleep(4)
+            main()
         except:
             pass
 def loadtest(): #Laadimise seadistus
@@ -985,11 +993,8 @@ def randomnimi(): #Käsilased
             enemyluck -= 49
         
     elif enemyname == "Seiklev COOP":
-        if randint(1,5)==1:
             shopreset()
             pood()
-        else:
-            randomnimi()
         #enemydmg = randint(enemyattack*0.8,enemyattack*1.2)
     headshot = 1.5*enemyattack
     leg = 0.75*enemyattack
@@ -1074,12 +1079,12 @@ def combat(): #Player combat
     
         else:
             aaaah = randint(1,100)*playerlevel
-            aaaah2 = randint(1,10)*enemylevel
+            aaaah2 = randint(1,100)*enemylevel
             munt += round((randint(1,20)+(0.8*enemylevel)),0)
             print("Sa võitsid")
             print(f"+{aaaah} XP")
             print(f"+{aaaah2} skoor")
-            print(f"+{munt} munte")
+            print(f"Sul on {munt} münti")
             playerskoor += aaaah2
             xp_current += aaaah
             level_up_check()
@@ -1247,7 +1252,8 @@ def pood(): #Alko (Pood) seadistus
     global item1
     global item2
     global item3
-    price1, price2, price3 = 15*playerlevel, 10*playerlevel, 15*playerlevel
+    global item4
+    price1, price2, price3, price4 = 15*playerlevel, 10*playerlevel, 15*playerlevel, 5*playerlevel
     
     print(f"""
                              ============
@@ -1262,6 +1268,7 @@ rahakott: {munt}
 [1] - {item1} | {price1}
 [2] - {item2} | {price2}
 [3] - {item3} | {price3}
+[4] - {item4} | {price4}
 
 [TAGASI] - Viib sind tagasi
 
@@ -1311,6 +1318,20 @@ rahakott: {munt}
                 print("Sul pole piisavalt raha")
                 sleep(2)
                 pood()
+    if pood2 == "4":
+        if item4 == "ostetud":
+            pood()
+        else:
+            if munt > price4:
+               munt -= price4
+               item4 = "ostetud"
+               #Teeb midagi
+               playerhp == playerhp2
+               pood()
+            else:
+                print("Sul pole piisavalt raha")
+                sleep(2)
+                pood()
     if pood2 == "TAGASI":
         alustamine2()
     else:
@@ -1321,7 +1342,8 @@ def shopreset():
     global item1
     global item2
     global item3
-    item1, item2, item3 = "+2 ATK | pärast level-upi","+2 DEF | pärast level-upi","+2 DEX | pärast level-upi"      
+    global item4
+    item1, item2, item3, item4 = "+2 ATK","+2 DEF","+2 DEX","Saa täis elud"      
         
 def tsoon(): #Tsoonide seadistus    
     global playerskoor
@@ -1361,11 +1383,62 @@ def story(): #Story
     clear()
 
 def alustamine():
+    global nimi
+    global playerattack
+    global playerdef
+    global playerdef2
+    global playerdex
+    global playermana
+    global playerint
+    global playerluck
+    global playerspecials
+    global playerlevel # Mariole muidugi meeldib ;)
+    global relv
+    global relv_min
+    global relv_max
+    global ruu
+    global ruu_def
+    global aksessuaar
+    global aksessuaar_info
+    global xp_current
+    global xp_needed
+    global playerclass
+    global relva_info
+    global playerskoor
+    global munt
+    global playerhp
+    global playerhp2
+    global playerchance
     story()
     newchar()
     
 def alustamine2(): #Story UI
     global nimi
+    global playerattack
+    global playerdef
+    global playerdef2
+    global playerdex
+    global playermana
+    global playerint
+    global playerluck
+    global playerspecials
+    global playerlevel # Mariole muidugi meeldib ;)
+    global relv
+    global relv_min
+    global relv_max
+    global ruu
+    global ruu_def
+    global aksessuaar
+    global aksessuaar_info
+    global xp_current
+    global xp_needed
+    global playerclass
+    global relva_info
+    global playerskoor
+    global munt
+    global playerhp
+    global playerhp2
+    global playerchance
     clear()
     lmao = input(f"""
 
@@ -1403,6 +1476,10 @@ def alustamine2(): #Story UI
     if lmao == "5":
         clear()
         savetest()
+    else:
+        print(f"Vale vaste {lmao} ")
+        sleep(2)
+        alustamine2()
         
 def playerstats():
         global nimi
@@ -1453,3 +1530,4 @@ def playerstats():
         alustamine2()
 
 start()
+
