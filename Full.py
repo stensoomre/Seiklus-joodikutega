@@ -84,7 +84,7 @@ def main(): #Menu screen
                      Tunnustused       - TUBLID
                      
               ─────────────────────────────────────────────────
-              Versioon: 0.1.0
+              Versioon: 0.1.1
           
 """)).upper()
     if vaste == "ALUSTA":
@@ -156,7 +156,6 @@ def level_up_check():
             playerint3 = playerint;
             playerluck3 = playerluck;
             #########################
-            playerdef2 = ruu_def + playerdef
             playerchance = round((playerluck3+(playerluck+50)),0)
             if playerchance >=95:
                 playerchance = 95
@@ -164,6 +163,7 @@ def level_up_check():
             playerhp2 = playerhp;
             playerattack += 1
             playerdef += 1
+            playerdef2 = ruu_def + playerdef
             playerdex += 1
             playermana += 1
             playerint += 1
@@ -927,7 +927,7 @@ def atrituubid():
         enemylevel = playerlevel + randint(1,2)
     enemyhp = 50*(enemylevel*0.25)
     enemyhp2 = enemyhp;
-    enemyattack = round((randint(1,10)/5*enemylevel),0)
+    enemyattack = round((5*enemylevel/randint(1,4)),0)
     enemydex = enemylevel*2
     enemydef = enemylevel*2
     enemyluck = enemylevel-2
@@ -1230,7 +1230,10 @@ def pood(): #Alko (Pood) seadistus
     global nimi
     global playerattack
     global playerdef
+    global playerdef2
     global playerdex
+    global playerhp
+    global playerhp2
     global playermana
     global playerint
     global playerluck
@@ -1264,11 +1267,12 @@ def pood(): #Alko (Pood) seadistus
 
 
 
-rahakott: {munt}
-[1] - {item1} | {price1}
-[2] - {item2} | {price2}
-[3] - {item3} | {price3}
-[4] - {item4} | {price4}
+Rahakott: {munt} münti
+
+[1] - {item1} | {price1} münti
+[2] - {item2} | {price2} münti
+[3] - {item3} | {price3} münti
+[4] - {item4} |{playerhp}/{playerhp2}| {price4} münti
 
 [TAGASI] - Viib sind tagasi
 
@@ -1298,6 +1302,7 @@ rahakott: {munt}
                item2 = "ostetud"
                #Teeb midagi
                playerdef +=2
+               playerdef2 +=2
                pood()
             else:
                 print("Sul pole piisavalt raha")
