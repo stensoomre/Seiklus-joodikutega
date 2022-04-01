@@ -164,7 +164,7 @@ def level_up_check():
             playerhp2 = playerhp;
             playerattack += 1
             playerdef += 1
-            playerdef2 += playerdef
+            playerdef2 += 1
             playerdex += 1
             playermana += 1
             playerint += 1
@@ -954,6 +954,8 @@ def randomnimi2(): #Boss seadistus
     global enemydex
     global enemyluck
     global enemyname
+    global enemyhp
+    global enemyhp2
     global headshot
     global leg
     global balls   
@@ -961,6 +963,8 @@ def randomnimi2(): #Boss seadistus
     enemyname = nimevalik[randint(0,len(nimevalik)-1)]
     if enemyname == "Vanapagan":
         enemyattack *= 2
+        enemyhp *= 4
+        enemyhp2 *= 4
         enemydex *= 1
         #enemydmg = randint(enemyattack*0.8,enemyattack*1.2)
     headshot = 2.5*enemyattack
