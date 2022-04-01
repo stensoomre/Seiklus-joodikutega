@@ -1086,7 +1086,7 @@ def combat(): #Player combat
             aaaah = randint(1,100)*playerlevel
             aaaah2 = randint(1,100)*enemylevel
             munt += round((randint(1,20)+(0.8*enemylevel)),0)
-            print("Sa võitsid")
+            print("Sa tapsid ta")
             print(f"+{aaaah} XP")
             print(f"+{aaaah2} skoor")
             print(f"Sul on {munt} münti")
@@ -1477,7 +1477,7 @@ def alustamine2(): #Story UI
         alustamine2()
     if lmao == "3":
         clear()
-        print("Tundmatu tegelane - Kuskil on, ei oska täpselt öelda, aga kui sa piisavalt tugevaks saad, ilmub ta ise.") #NPC
+        print("Tundmatu tegelane - Kuskil on, ei oska täpselt öelda, aga kui sa piisavalt tugevaks saad, ilmub ta ise.\nHint: 200k skoor") #NPC
         sleep(2)
         alustamine2()
     if lmao == "4":
@@ -1540,4 +1540,5 @@ def playerstats():
         alustamine2()
 
 start()
+
 
