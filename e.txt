@@ -1,12 +1,12 @@
 Nimi: e
-Level: 11.0 (253.0XP/6618.0XP)
+Level: 13.0 (257.0XP/9125.0XP)
 ---------------------
-ATK: 18.0 (36.0-45.0)DMG
-DEF: 19.0 (23.0)
-DEX: 12.0
-MANA: 10.0
-INT: 10.0
-LUCK: 11.0
+ATK: 24.0 (48.0-60.0)DMG
+DEF: 23.0 (25.0)
+DEX: 18.0
+MANA: 12.0
+INT: 12.0
+LUCK: 13.0
 SPECIALS: Oskus
 ---------------------
 RELV: Ekskalibur "Kivist-võetud"
@@ -14,5 +14,5 @@ Ruu: Rüü +(5.0 DEF)
 AKSESSUAAR: Saapanõõrid None
 ---------------------
 Klass: Mõõgamees
-Skoor: 25200.0
-munt: 502.0
+Skoor: 40636.0
+munt: 143.0

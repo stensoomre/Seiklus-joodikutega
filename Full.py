@@ -145,6 +145,7 @@ def level_up_check():
     global playerluck3
     global playerhp
     global playerhp2
+    global playerdef2
     if xp_current>xp_needed: # Kui xp on suurem kui xp max
             xp_current -= xp_needed # võta maha
             playerlevel += 1 # level up :)
@@ -163,7 +164,7 @@ def level_up_check():
             playerhp2 = playerhp;
             playerattack += 1
             playerdef += 1
-            playerdef2 = ruu_def + playerdef
+            playerdef2 += playerdef
             playerdex += 1
             playermana += 1
             playerint += 1
@@ -1331,7 +1332,7 @@ Rahakott: {munt} münti
                munt -= price4
                item4 = "ostetud"
                #Teeb midagi
-               playerhp == playerhp2
+               playerhp = playerhp2;
                pood()
             else:
                 print("Sul pole piisavalt raha")
