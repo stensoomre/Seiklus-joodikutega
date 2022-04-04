@@ -28,10 +28,44 @@ def clearacc(): #Uus tegelane
     global playerclass
     global playerskoor
     global munt
+    playerattack = None
+    playerdef = None
+    playerdex = None
+    playermana = None
+    playerint = None
+    playerspecials = None
+    playerlevel = None
+    playerchance = None
+    playerhp = None
+    playerhp2 = None
+    relv_min = None
+    relv_max = None
+    nimevalik = None
+    enemylevel = None
+    enemychance = None
+    enemyhp = None
+    enemyhp2 = None
+    xp_current = None
+    enemyattack = None
+    enemydmg = None
+    enemydex = None
+    enemyluck = None
+    juhtus = None
+    juhtus1 = None
+    turn = None
+    playerskoor = None
+    munt = None
+    enemydef = None
     f = open(f"SAVE/{nimi}.txt","w+", encoding="UTF-8")
     f.write(f"")
     f.close()
     pass
+
+def crash():
+    try:
+        crash()
+    except:
+        crash()
     
 def start():
     
@@ -923,7 +957,7 @@ def atrituubid():
     juhtus = ""
     juhtus1 = ""
     #Enemy
-    enemylevel = playerlevel + randint(-2,2)
+    enemylevel = playerlevel + randint(-2,1000000) # -2 kuni 10 levelit kõrgem, kui player
     if enemylevel <= 0:
         enemylevel = playerlevel + randint(1,2)
     enemyhp = 50*(enemylevel*0.25)
@@ -937,7 +971,9 @@ def atrituubid():
         enemychance = 95
     #attackid
 #1/10000000
-    if playerskoor >= 200000:
+    if playerskoor >= 300000:
+        randomnimi()
+    elif playerskoor >= 200000:
         randomnimi2()
     else:
         randomnimi()
@@ -1047,6 +1083,7 @@ def combat(): #Player combat
             turn +=1
             combat1()
     if playerhp <= 0:
+        clearacc()
         input("""
 
         Sa surid,
@@ -1063,7 +1100,6 @@ def combat(): #Player combat
         
         Enter
 """)
-        clearacc()
         main()
     elif enemyhp <= 0:
         if enemyname == "Vanapagan": 
@@ -1079,8 +1115,13 @@ def combat(): #Player combat
                         
             Enter
             """)
-            clearacc()
-            main()
+            soov = input("\n Kas soovid jätkata?").upper()
+            if soov == "JAH" or "JA":
+                playerskoor = 300000
+                alustamine2()
+            else:
+                clearacc()
+                main()
     
         else:
             aaaah = randint(1,100)*playerlevel
@@ -1358,9 +1399,25 @@ def shopreset():
 def tsoon(): #Tsoonide seadistus    
     global playerskoor
     
-    if playerskoor >= 200000: #200000 punkti tsoon kolme jaoks (väike hüpe) + boss fight
+    if playerskoor >= 300000: #200000 punkti tsoon kolme jaoks (väike hüpe) + boss fight
+        print("Liigud paradoxi")
+    elif playerskoor >= 200000: #200000 punkti tsoon kolme jaoks (väike hüpe) + boss fight
         print("Liigud surma")
-    
+        
+    elif playerskoor >= 100000:
+        print("Sa komistad edasi")
+        if randint(1,1000000) == 1: # see oleks funni
+            print("Sa surid")
+            sleep(2)
+            clearacc()
+    elif playerskoor >= 50000:
+        print("Liigud neli sammu edasi")
+    elif playerskoor >= 40000:
+        print("Liigud kolm sammu edasi")
+    elif playerskoor >= 30000:
+        print("Liigud kaks sammu edasi")
+    elif playerskoor >= 20000:
+        print("Liigud ühe sammu edasi")
     elif playerskoor >= 10000: #10000 punkti tsoon kahe jaoks (väike hüpe)
         print("Liigud kaugemale")
     
@@ -1540,5 +1597,6 @@ def playerstats():
         alustamine2()
 
 start()
+
 
 
